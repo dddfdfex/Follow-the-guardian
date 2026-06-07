@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة ولي الأمر | أ. أمنية سعيد</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@300;400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+    <style>
+        :root {
+            /* السينمائي المظلم - الافتراضي للمنصة */
+            --bg: #05060D;
+            --surface: rgba(13, 15, 28, 0.85);
+            --surface-hover: rgba(26, 30, 56, 0.9);
+            --border: rgba(99, 102, 241, 0.2);
+            --border-highlight: rgba(139, 92, 246, 0.5);
+            --text-main: #F2F4FF;
+            --text-muted: #9BA8CC;
+            --primary: #6366F1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #8B5CF6;
+            --success: #10B981;
+            --success-glow: rgba(16, 185, 129, 0.2);
+            --danger: #F43F5E;
+            --danger-glow: rgba(244, 63, 94, 0.2);
+            --warning: #F59E0B;
+            --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        [data-theme="light"] {
+            /* الوضع المضيء الكلاسيكي */
+            --bg: #F8FAFC;
+            --surface: rgba(255, 255, 255, 0.95);
+            --surface-hover: rgba(241, 245, 249, 1);
+            --border: rgba(148, 163, 184, 0.3);
+            --border-highlight: rgba(99, 102, 241, 0.5);
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --primary: #4F46E5;
+            --primary-glow: rgba(79, 70, 229, 0.2);
+            --secondary: #7C3AED;
+            --success: #059669;
+            --success-glow: rgba(5, 150, 105, 0.1);
+            --danger: #E11D48;
+            --danger-glow: rgba(225, 29, 72, 0.1);
+            --warning: #D97706;
+            --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Zain', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* مؤثرات الإضاءة الخلفية */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 50% 30%, var(--primary-glow) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 19px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 19px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 52px 16px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--text-main);
+            font-size: 18px;
+            font-weight: 700;
+            outline: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+        }
+
+        #login-view {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .login-card {
+            background: var(--surface);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 44px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .brand-logo {
+            width: 130px;
+            height: auto;
+            max-height: 130px;
+            margin: 0 auto 16px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            object-fit: contain;
+            display: block;
+        }
+
+        .login-title {
+            font-size: 34px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-main), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-subtitle {
+            font-size: 19px;
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+        
+        .login-description {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-weight: 600;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        #dashboard-view {
+            display: none;
+            padding: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 26px;
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            margin-bottom: 26px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-brand img {
+            width: 55px;
+            height: 55px;
+            background: transparent;
+            border: none;
+            object-fit: contain;
+        }
+
+        .nav-title {
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--surface-hover);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .logout-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--danger-glow);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(139, 92, 246, 0.12));
+            border: 1px solid var(--border-highlight);
+            border-radius: 26px;
+            padding: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 26px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-text {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .welcome-title {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .welcome-title span {
+            color: var(--primary);
+        }
+
+        .welcome-desc {
+            font-size: 21px;
+            color: var(--text-muted);
+            font-weight: 600;
+            max-width: 650px;
+        }
+
+        .floating-teacher {
+            width: 240px;
+            height: auto;
+            z-index: 2;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.4));
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+            margin-bottom: 26px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 26px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .stat-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            flex-shrink: 0;
+        }
+
+        .icon-blue { background: var(--primary-glow); color: var(--primary); }
+        .icon-green { background: var(--success-glow); color: var(--success); }
+        .icon-orange { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+
+        .stat-val {
+            font-size: 34px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 17px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .data-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            padding: 26px;
+            margin-bottom: 26px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        th {
+            text-align: right;
+            padding: 18px;
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 18px;
+            font-size: 19px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        tbody tr:hover {
+            background: var(--surface-hover);
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-success { background: var(--success-glow); color: var(--success); border: 1px solid var(--success); }
+        .badge-danger { background: var(--danger-glow); color: var(--danger); border: 1px solid var(--danger); }
+        .badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+
+        #error-msg {
+            display: none;
+            color: var(--danger);
+            background: var(--danger-glow);
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid var(--danger);
+            margin-bottom: 22px;
+            font-weight: 700;
+            font-size: 17px;
+        }
+
+        .report-actions {
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        /* الاستجابة للهواتف والشاشات المختلفة */
+        @media (max-width: 992px) {
+            .welcome-banner { padding: 36px; }
+            .floating-teacher { width: 200px; }
+            .welcome-title { font-size: 32px; }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-banner { flex-direction: column; text-align: center; padding: 30px 20px; }
+            .floating-teacher { width: 170px; margin-top: 24px; }
+            .welcome-title { font-size: 28px; }
+            .welcome-desc { font-size: 18px; }
+            .top-nav { padding: 14px 20px; }
+            .nav-title { font-size: 20px; }
+            .login-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-view">
+        <div class="login-card gs-reveal">
+            <!-- اللوجو الآن بدون خلفية أو إطار -->
+            <img src="logo.png" alt="شعار الأكاديمية" class="brand-logo" onerror="this.src='https://ui-avatars.com/api/?name=Omnia+Said&background=transparent&color=6366F1&size=130'">
+            
+            <h1 class="login-title">أ. أمنية سعيد</h1>
+            <p class="login-subtitle">بوابة متابعة الطالب الأكاديمية</p>
+            
+            <!-- إضافة الشرح التفصيلي لولي الأمر -->
+            <p class="login-description">
+                أهلاً بك ولي الأمر الكريم في بوابتك المخصصة.<br>
+                تتيح لك هذه المنصة متابعة مستوى نجلكم بدقة، بدءاً من سجلات الحضور والانضباط، مروراً بتقارير درجات الامتحانات، وصولاً إلى موقف تسليم الواجبات.<br>
+                <strong>يرجى إدخال البيانات أدناه للوصول إلى التقرير الشامل:</strong>
+            </p>
+
+            <div id="error-msg"></div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-phone"></i>
+                <input type="tel" id="studentPhone" class="form-control" placeholder="رقم هاتف الطالب" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-user-shield"></i>
+                <input type="tel" id="parentPhone" class="form-control" placeholder="رقم هاتف ولي الأمر (واتساب)" autocomplete="off">
+            </div>
+
+            <button class="btn btn-primary" id="loginBtn" style="width: 100%;" onclick="attemptLogin()">
+                <i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول للبوابة
+            </button>
+        </div>
+    </div>
+
+    <div id="dashboard-view">
+        
+        <div class="top-nav gs-stagger">
+            <div class="nav-brand">
+                <!-- اللوجو في الشريط العلوي بدون خلفية أو إطار -->
+                <img src="logo.png" alt="Logo" onerror="this.src='https://ui-avatars.com/api/?name=OS&background=transparent&color=6366F1'">
+                <div class="nav-title">أكاديمية أ. أمنية سعيد</div>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="تبديل المظهر">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+                <button class="logout-btn" onclick="logout()" title="تسجيل الخروج">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="printable-area">
+            <div class="welcome-banner gs-stagger">
+                <div class="welcome-text">
+                    <h2 class="welcome-title">مرحباً بك يا ولي أمر البطل <br><span id="dbStudentName">...</span></h2>
+                    <p class="welcome-desc">نحن نسعد بمتابعتك المستمرة لأداء ابنكم الأكاديمي. رؤيتنا المشتركة هي الوصول لقمة التفوق.</p>
+                </div>
+                <img src="image_2ee88b.jpg" alt="أ. أمنية سعيد" class="floating-teacher" onerror="this.style.display='none'">
+            </div>
+
+            <div class="stats-grid gs-stagger">
+                <div class="stat-card">
+                    <div class="stat-icon icon-blue"><i class="fa-solid fa-wallet"></i></div>
+                    <div>
+                        <div class="stat-val" id="dbBalance">0</div>
+                        <div class="stat-label">رصيد الحصص الحالي</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-green"><i class="fa-solid fa-clipboard-user"></i></div>
+                    <div>
+                        <div class="stat-val" id="dbAttRate">0%</div>
+                        <div class="stat-label">نسبة الحضور والانضباط</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-orange"><i class="fa-solid fa-star"></i></div>
+                    <div>
+                        <div class="stat-val" id="dbExamAvg">0%</div>
+                        <div class="stat-label">متوسط درجات الامتحانات</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-section gs-stagger">
+                <div class="section-header">
+                    <div class="section-title"><i class="fa-solid fa-calendar-check" style="color: var(--primary);"></i> تقرير انتظام الحضور والغياب</div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>التاريخ واليوم / اسم الجلسة</th>
+                                <th>حالة الحضور</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="data-section gs-stagger">
+                <div class="section-header">
+                    <div class="section-title"><i class="fa-solid fa-file-pen" style="color: var(--secondary);"></i> سجل الاختبارات والامتحانات الدورية</div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم الاختبار أو الامتحان</th>
+                                <th>درجة الطالب</th>
+                                <th>الدرجة الكلية</th>
+                                <th>النسبة المئوية</th>
+                                <th>التقييم العام</th>
+                            </tr>
+                        </thead>
+                        <tbody id="examsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="data-section gs-stagger">
+                <div class="section-header">
+                    <div class="section-title"><i class="fa-solid fa-book-open" style="color: var(--warning);"></i> سجل تسليم الواجبات المدرسية والمهام</div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>التاريخ واليوم / عنوان الواجب</th>
+                                <th>حالة التسليم والتقييم</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hwTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-actions gs-stagger">
+            <button class="btn btn-primary" onclick="downloadComprehensiveReport()">
+                <i class="fa-solid fa-file-pdf"></i> تحميل التقرير الأكاديمي الشامل
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // إعدادات الـ Firebase المأخوذة من لوحة الأدمن الخاصة بك
+        const _FC = {
+            apiKey: "AIzaSyD971ixQUVYZxTtjAkl7U8bC-ZbsZgCUX4",
+            authDomain: "brothers-studio-attendance.firebaseapp.com",
+            databaseURL: "https://brothers-studio-attendance-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "brothers-studio-attendance",
+            storageBucket: "brothers-studio-attendance.firebasestorage.app",
+            messagingSenderId: "149223396857",
+            appId: "1:149223396857:web:2d8629ef8f76581e35d928"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(_FC);
+        const db = firebase.database();
+
+        let currentStudent = null;
+        let studentFid = null;
+
+        gsap.from(".gs-reveal", { y: 45, opacity: 0, duration: 1.2, ease: "back.out(1.4)" });
+        gsap.to(".floating-teacher", { y: -18, duration: 2.8, yoyo: true, repeat: -1, ease: "power1.inOut" });
+
+        function toggleTheme() {
+            const body = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                icon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                icon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        if(localStorage.getItem('theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+        }
+
+        // دالة تسجيل الدخول والتحقق من قاعدة البيانات
+        async function attemptLogin() {
+            const stPhone = document.getElementById('studentPhone').value.trim();
+            const paPhone = document.getElementById('parentPhone').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+            const loginBtn = document.getElementById('loginBtn');
+
+            if (!stPhone || !paPhone) {
+                errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> يرجى إدخال رقم الطالب ورقم ولي الأمر للمتابعة';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            errorMsg.style.display = 'none';
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري التحقق...';
+
+            try {
+                // سحب بيانات الطلاب من Firebase
+                const snap = await db.ref('students_directory').once('value');
+                const students = snap.val() || {};
+                
+                let matchedFid = null;
+                let matchedStudent = null;
+
+                // البحث عن تطابق برقم هاتف الطالب ورقم ولي الأمر
+                for (const [fid, student] of Object.entries(students)) {
+                    if (student.student_phone === stPhone && student.parent_phone === paPhone) {
+                        matchedFid = fid;
+                        matchedStudent = student;
+                        break;
+                    }
+                }
+
+                if (matchedStudent) {
+                    studentFid = matchedFid;
+                    currentStudent = matchedStudent;
+                    showDashboard();
+                    await fetchAndLoadStudentData(); // جلب البيانات وعرضها
+                } else {
+                    errorMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> البيانات غير متطابقة، تأكد من الأرقام المسجلة في السنتر.';
+                    errorMsg.style.display = 'block';
+                }
+            } catch (error) {
+                errorMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> حدث خطأ في الاتصال بالخادم. حاول مجدداً.';
+                errorMsg.style.display = 'block';
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول للبوابة';
+            }
+        }
+
+        function showDashboard() {
+            gsap.to("#login-view", {
+                opacity: 0, scale: 0.92, duration: 0.6, onComplete: () => {
+                    document.getElementById('login-view').style.display = 'none';
+                    document.getElementById('dashboard-view').style.display = 'block';
+                    gsap.from(".gs-stagger", { y: 35, opacity: 0, duration: 0.9, stagger: 0.14, ease: "power2.out" });
+                }
+            });
+        }
+
+        function logout() {
+            document.getElementById('studentPhone').value = '';
+            document.getElementById('parentPhone').value = '';
+            currentStudent = null;
+            studentFid = null;
+            
+            gsap.to("#dashboard-view", {
+                opacity: 0, duration: 0.4, onComplete: () => {
+                    document.getElementById('dashboard-view').style.display = 'none';
+                    document.getElementById('login-view').style.display = 'flex';
+                    document.getElementById('login-view').style.opacity = 1;
+                    document.getElementById('login-view').style.transform = "scale(1)";
+                }
+            });
+        }
+
+        // دالة سحب بيانات الطالب من مختلف الجداول في Firebase وبناء الجداول
+        async function fetchAndLoadStudentData() {
+            if (!currentStudent) return;
+
+            const uid = currentStudent.uid;
+            const groupId = currentStudent.group_reference;
+
+            // البيانات الأساسية
+            document.getElementById('dbStudentName').textContent = currentStudent.name || 'طالب';
+            document.getElementById('dbBalance').textContent = currentStudent.wallet_balance || 0;
+
+            // 1. استخراج الحضور من الجلسات
+            const sessSnap = await db.ref('attendance_sessions').once('value');
+            const allSessions = sessSnap.val() || {};
+            const mySessions = Object.values(allSessions)
+                .filter(s => s.groupId === groupId)
+                .sort((a, b) => (b.startTime || 0) - (a.startTime || 0));
+
+            const attTbody = document.getElementById('attendanceTableBody');
+            attTbody.innerHTML = '';
+            let attendedCount = 0;
+
+            if (mySessions.length === 0) {
+                attTbody.innerHTML = '<tr><td colspan="2" style="text-align:center; color:var(--text-muted)">لا توجد جلسات مسجلة لهذه المجموعة بعد</td></tr>';
+            } else {
+                mySessions.forEach(s => {
+                    const isPresent = s.attended && s.attended[studentFid];
+                    if (isPresent) attendedCount++;
+
+                    const dateStr = s.startTime ? new Date(s.startTime).toLocaleDateString('ar-EG', {day:'numeric', month:'short', year:'numeric'}) : '—';
+                    const sessionName = s.session_number ? `جلسة #${s.session_number}` : (s.groupTitle || 'جلسة');
+                    const bClass = isPresent ? 'badge-success' : 'badge-danger';
+                    const bText = isPresent ? '<i class="fa-solid fa-check"></i> حاضر وملتزم' : '<i class="fa-solid fa-xmark"></i> غياب';
+                    
+                    attTbody.innerHTML += `<tr><td>${dateStr} - <span style="color:var(--text-muted); font-size: 15px;">${sessionName}</span></td><td><span class="badge ${bClass}">${bText}</span></td></tr>`;
+                });
+            }
+
+            const attRate = mySessions.length > 0 ? Math.round((attendedCount / mySessions.length) * 100) : 0;
+            document.getElementById('dbAttRate').textContent = attRate + '%';
+
+            // 2. استخراج الامتحانات
+            const examsSnap = await db.ref('exam_scores').once('value');
+            const allExams = examsSnap.val() || {};
+            const myExams = Object.values(allExams)
+                .filter(ex => ex.student_uid === uid)
+                .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            const exTbody = document.getElementById('examsTableBody');
+            exTbody.innerHTML = '';
+            let examSum = 0;
+
+            if (myExams.length === 0) {
+                exTbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted)">لا توجد امتحانات مسجلة للطالب</td></tr>';
+            } else {
+                myExams.forEach(ex => {
+                    const pct = ex.pct || 0;
+                    examSum += pct;
+                    
+                    let evalClass = 'badge-success';
+                    let evalText = ex.grade_label || 'ممتاز';
+                    if(pct < 50) { evalClass = 'badge-danger'; evalText = 'يحتاج لمتابعة'; }
+                    else if(pct < 75) { evalClass = 'badge-warning'; }
+
+                    exTbody.innerHTML += `<tr>
+                        <td>${ex.exam_title || '—'}<br><span style="font-size:14px;color:var(--text-muted)">${ex.date || ''}</span></td>
+                        <td style="color:var(--primary); font-weight:900;">${ex.score || 0}</td>
+                        <td>${ex.max_score || 0}</td>
+                        <td>${pct}%</td>
+                        <td><span class="badge ${evalClass}">${evalText}</span></td>
+                    </tr>`;
+                });
+            }
+
+            const examAvg = myExams.length > 0 ? Math.round(examSum / myExams.length) : 0;
+            document.getElementById('dbExamAvg').textContent = examAvg + '%';
+
+            // 3. استخراج الواجبات
+            const hwSnap = await db.ref('homework_records').once('value');
+            const allHw = hwSnap.val() || {};
+            const myHw = Object.values(allHw)
+                .filter(hw => hw.student_uid === uid)
+                .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            const hwTbody = document.getElementById('hwTableBody');
+            hwTbody.innerHTML = '';
+
+            if (myHw.length === 0) {
+                hwTbody.innerHTML = '<tr><td colspan="2" style="text-align:center; color:var(--text-muted)">لا توجد واجبات مسجلة</td></tr>';
+            } else {
+                myHw.forEach(hw => {
+                    const isDone = hw.done;
+                    const bClass = isDone ? 'badge-success' : 'badge-danger';
+                    const bText = isDone ? '<i class="fa-solid fa-check-double"></i> تم التسليم' : '<i class="fa-solid fa-triangle-exclamation"></i> لم يتم التسليم';
+                    const hwLabel = hw.session_number ? `واجب جلسة #${hw.session_number}` : 'واجب مسجل';
+                    
+                    hwTbody.innerHTML += `<tr><td>${hw.date || '—'} - <span style="color:var(--text-muted); font-size: 15px;">${hwLabel}</span></td><td><span class="badge ${bClass}">${bText}</span></td></tr>`;
+                });
+            }
+        }
+
+        // تصدير PDF للطباعة
+        function downloadComprehensiveReport() {
+            const element = document.getElementById('printable-area');
+            const studentName = document.getElementById('dbStudentName').textContent;
+            
+            const opt = {
+                margin:       12,
+                filename:     `التقرير_الأكاديمي_الشامل_${studentName.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.99 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            const img = document.querySelector('.floating-teacher');
+            if(img) img.style.display = 'none';
+
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', 'light'); // تحويل الوضع لـ فاتح لضمان دقة الطباعة
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                if(img) img.style.display = 'block';
+                if(currentTheme === 'dark' || !currentTheme) {
+                    document.documentElement.removeAttribute('data-theme'); // إعادة المظهر لطبيعته
+                }
+            });
+        }
+    </script>
+</body>
+</html>
