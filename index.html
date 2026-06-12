@@ -38,7 +38,7 @@
         }
 
         [data-theme="light"] {
-            /* نظام الألوان المضيء الهادئ جداً لتقليل إجهاد العين */
+            /* نظام الألوان المضيء الهادئ لتقليل إجهاد العين */
             --bg: #f3f4f6;
             --surface: rgba(255, 255, 255, 0.85);
             --surface-hover: rgba(243, 244, 246, 0.95);
@@ -63,7 +63,6 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Zain', sans-serif;
-            /* انتقالات ناعمة عند تغيير المظهر من ليلي لنهاري */
             transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
                         border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
                         box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -80,7 +79,6 @@
             background-attachment: fixed;
         }
 
-        /* حركات التفاعل والانتقالات للأزرار */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -123,7 +121,6 @@
             opacity: 1;
         }
 
-        /* حقول الإدخال الاحترافية */
         .input-group {
             position: relative;
             margin-bottom: 26px;
@@ -173,7 +170,6 @@
             transform: scale(1.1);
         }
 
-        /* واجهة تسجيل الدخول الزجاجية */
         #login-view {
             min-height: 100vh;
             display: flex;
@@ -223,7 +219,6 @@
             line-height: 1.6;
         }
 
-        /* لوحة التحكم الرئيسية */
         #dashboard-view {
             display: none;
             padding: 30px 24px;
@@ -300,7 +295,6 @@
             color: #fff;
         }
 
-        /* بنر الترحيب المميز بتأثيرات الانزلاق الجمالية */
         .welcome-banner {
             background: linear-gradient(135deg, rgba(129, 140, 248, 0.06), rgba(192, 132, 252, 0.06));
             border: 1px solid var(--border-highlight);
@@ -359,7 +353,6 @@
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
         }
 
-        /* شبكة الإحصائيات مع ترانزيشن حركي رائع */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -420,7 +413,6 @@
             font-weight: 700;
         }
 
-        /* أقسام الجداول وبيانات التقارير */
         .data-section {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -470,7 +462,6 @@
         tbody tr:hover td { background: rgba(0,0,0,0.18); }
         [data-theme="light"] tbody tr:hover td { background: rgba(0,0,0,0.04); }
 
-        /* شارات التقييم والحالة */
         .badge {
             padding: 8px 18px;
             border-radius: 12px;
@@ -500,7 +491,6 @@
 
         .report-actions { text-align: center; margin-top: 45px; padding-bottom: 45px; }
 
-        /* زر التحكم بالموسيقى العائم المتطور */
         .music-controller {
             position: fixed;
             bottom: 25px;
@@ -704,7 +694,7 @@
     </div>
 
     <script>
-        // إعدادات Firebase الخاصة بك والمربوطة بالداتا بيز فورا
+        // إعدادات Firebase والربط الكامل بقواعد البيانات
         const _FC = {
             apiKey: "AIzaSyD971ixQUVYZxTtjAkl7U8bC-ZbsZgCUX4",
             authDomain: "brothers-studio-attendance.firebaseapp.com",
@@ -714,6 +704,8 @@
             messagingSenderId: "149223396857",
             appId: "1:149223396857:web:2d8629ef8f76581e35d928"
         };
+        
+        // تهيئة الـ Firebase
         if (!firebase.apps.length) firebase.initializeApp(_FC);
         const db = firebase.database();
 
@@ -726,15 +718,13 @@
         const musicIcon = document.getElementById('musicIcon');
         const musicText = document.getElementById('musicText');
 
-        // خوارزمية التشغيل التلقائي الكامل للموسيقى متوافقة مع المتصفحات الحديثة
+        // إدارة تشغيل الموسيقى التلقائي الخلفي بالتوافق مع المتصفحات
         document.addEventListener("DOMContentLoaded", () => {
-            music.volume = 0.4; // مستوى صوت مريح كخلفية
+            music.volume = 0.4;
             
-            // محاولة تشغيل تلقائي
             let playPromise = music.play();
             if (playPromise !== undefined) {
                 playPromise.catch(() => {
-                    // إذا حظرها المتصفح، تعمل تلقائياً مع أول حركة أو نقرة للمستخدم في الصفحة
                     const runOnInteraction = () => {
                         music.play();
                         document.removeEventListener('click', runOnInteraction);
@@ -747,11 +737,10 @@
                 });
             }
             
-            // تشغيل حركة الكارد الرئيسي عند الفتح
             gsap.from(".login-card", { y: 60, opacity: 0, duration: 1.2, ease: "power4.out" });
         });
 
-        // دالة كتم وتشغيل الصوت للزر العائم
+        // زر التحكم في كتم/تشغيل الصوت
         function toggleMusic(event) {
             event.stopPropagation();
             if (music.muted || music.paused) {
@@ -768,10 +757,10 @@
             }
         }
 
-        // تأثير اهتزاز متموج ناعم جدا ومستمر لصورة المعلمة لتعطي لمسة حيوية للبوابة
+        // تأثير الحركة العائم المستمر لصورة المعلمة
         gsap.to(".floating-teacher", { y: -10, duration: 2.5, yoyo: true, repeat: -1, ease: "sine.inOut" });
 
-        // تبديل المظهر (ليلي / نهاري مريح جداً للعين)
+        // تبديل الثيم المظلم والمضيء
         function toggleTheme() {
             const body = document.documentElement;
             const icon = document.getElementById('themeIcon');
@@ -791,7 +780,7 @@
             document.getElementById('themeIcon').className = 'fa-solid fa-sun';
         }
 
-        // التعرف الذكي على جنس اسم الطالب للترحيب المخصص والراقي
+        // تحديد جنس اسم الطالب وصياغة الترحيب المناسب
         function getSmartWelcomeText(fullName) {
             if(!fullName) return "ولي أمر الطالب(ة) المتميز(ة)";
             const firstName = fullName.trim().split(' ')[0];
@@ -805,7 +794,7 @@
             }
         }
 
-        // معالجة تسجيل الدخول والبحث في الداتابيز
+        // التحقق من تسجيل الدخول والمطابقة في Firebase
         async function attemptLogin() {
             const stPhone = document.getElementById('studentPhone').value.trim();
             const paPhone = document.getElementById('parentPhone').value.trim();
@@ -823,6 +812,7 @@
             loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري جلب السجل الأكاديمي الرقمي...';
 
             try {
+                // جلب دليل الطلاب من قاعدة البيانات
                 const snap = await db.ref('students_directory').once('value');
                 const students = snap.val() || {};
                 
@@ -856,14 +846,13 @@
             }
         }
 
-        // تأثير انتقال متداخل وسلس للغاية (Staggered Animation) عند دخول لوحة التحكم
+        // تأثيرات الانتقال عند الدخول للوحة التحكم الرئيسية
         function showDashboard() {
             gsap.to("#login-view", {
                 opacity: 0, y: -40, duration: 0.6, onComplete: () => {
                     document.getElementById('login-view').style.display = 'none';
                     document.getElementById('dashboard-view').style.display = 'block';
                     
-                    // حركة السقوط المتدرج لعناصر لوحة التحكم لجعل المظهر مبهراً
                     gsap.from(".top-nav, .welcome-banner, .stat-card, .data-section, .report-actions", { 
                         y: 40, 
                         opacity: 0, 
@@ -875,6 +864,7 @@
             });
         }
 
+        // خروج الطالب ومسح البيانات المؤقتة
         function logout() {
             document.getElementById('studentPhone').value = '';
             document.getElementById('parentPhone').value = '';
@@ -891,7 +881,7 @@
             });
         }
 
-        // جلب وعرض البيانات حياً من الـ Firebase
+        // جلب وعرض بيانات الحضور والاختبارات والواجبات المربوطة حياً بالـ Firebase
         async function fetchAndLoadStudentData() {
             if (!currentStudent) return;
 
@@ -901,7 +891,7 @@
             document.getElementById('dbWelcomeTitle').innerHTML = `مرحباً بك يا ${getSmartWelcomeText(rawStudentName)}`;
             document.getElementById('dbBalance').textContent = currentStudent.wallet_balance || 0;
 
-            // 1. معالجة الحضور والغياب
+            // 1. جلب ومعالجة سجل الحضور والغياب للدروس
             const sessSnap = await db.ref('attendance_sessions').once('value');
             const allSessions = sessSnap.val() || {};
             const mySessions = Object.values(allSessions)
@@ -937,7 +927,7 @@
             const attRate = mySessions.length > 0 ? Math.round((attendedCount / mySessions.length) * 100) : 0;
             document.getElementById('dbAttRate').textContent = attRate + '%';
 
-            // 2. معالجة دراسات ونتائج الاختبارات والتقييمات
+            // 2. جلب ومعالجة نتائج التقييمات والاختبارات الدورية
             const examsSnap = await db.ref('exam_scores').once('value');
             const allExams = examsSnap.val() || {};
             const myExams = Object.values(allExams)
@@ -976,7 +966,7 @@
             const examAvg = myExams.length > 0 ? Math.round(examSum / myExams.length) : 0;
             document.getElementById('dbExamAvg').textContent = examAvg + '%';
 
-            // 3. معالجة الواجبات والمهام التكليفية
+            // 3. جلب ومعالجة السجلات للواجبات والتكليفات المنزلية
             const hwSnap = await db.ref('homework_records').once('value');
             const allHw = hwSnap.val() || {};
             const myHw = Object.values(allHw)
@@ -1006,7 +996,7 @@
             }
         }
 
-        // تصدير PDF للطباعة باحترافية
+        // تصدير وحفظ التقرير الأكاديمي بصيغة PDF منسقة للطباعة
         function downloadComprehensiveReport() {
             const element = document.getElementById('printable-area');
             
