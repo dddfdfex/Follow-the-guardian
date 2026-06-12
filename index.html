@@ -1,210 +1,285 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>منصة التميز الأكاديمي | أ. أمنية سعيد</title>
-    <!-- الخطوط -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <!-- الأيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- المكتبات -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js">
+    </script>
+    <!-- html2canvas -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js">
+    </script>
     <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js">
+    </script>
 
     <style>
-        /* ═══════════════════════════════════════════════════════════════
-           نظام الألوان الجديد — أسود عميق مع أحمر مميز (Red Accent)
-        ═══════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════
+                   ROOT VARIABLES — Premium Dark Theme
+                   ═══════════════════════════════════════════════ */
         :root {
-            --bg-deep:        #0a0a0a;
-            --bg-surface:     #111111;
-            --bg-card:        #1a1a1e;
-            --border-light:   rgba(255,255,255,0.04);
-            --border-hi:      rgba(225, 29, 72, 0.25);
-            --text-primary:   #fafafa;
-            --text-secondary: #a1a1aa;
-            --text-muted:     #71717a;
-            --red-primary:    #e11d48;
-            --red-light:      #f43f5e;
-            --red-dark:       #be123c;
-            --green-success:  #10b981;
-            --shadow-soft:    0 8px 32px rgba(225, 29, 72, 0.12);
-            --radius-lg:      20px;
-            --radius-md:      14px;
-            --radius-sm:      10px;
-            --font-main:      'Cairo', 'Tajawal', sans-serif;
+            --bg-primary: #0b0b0e;
+            --bg-secondary: #121216;
+            --bg-card: #1a1a20;
+            --bg-card-hover: #22222a;
+            --bg-glass: rgba(26, 26, 32, 0.72);
+            --border-light: rgba(255, 255, 255, 0.05);
+            --border-hi: rgba(225, 29, 72, 0.20);
+            --text-primary: #f5f5f7;
+            --text-secondary: #a8a8b3;
+            --text-muted: #6e6e7a;
+            --red-primary: #e11d48;
+            --red-light: #f43f5e;
+            --red-dark: #be123c;
+            --green-success: #10b981;
+            --gold-accent: #fbbf24;
+            --shadow-soft: 0 8px 32px rgba(225, 29, 72, 0.10);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --radius-xs: 8px;
+            --font-main: 'Cairo', 'Tajawal', sans-serif;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
-        /* ═══════════════════════════════════════════════════════════════
-           الإعدادات الأساسية
-        ═══════════════════════════════════════════════════════════════ */
-        * { margin:0; padding:0; box-sizing:border-box; }
-        html { scroll-behavior: smooth; }
+        /* ═══════════════════════════════════════════════
+                   RESET & BASE
+                   ═══════════════════════════════════════════════ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
         body {
             font-family: var(--font-main);
-            background: var(--bg-deep);
+            background: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
             font-weight: 500;
             line-height: 1.6;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
         }
-        img { max-width: 100%; display: block; }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        a,
+        button,
+        input,
+        textarea {
+            font-family: var(--font-main);
+        }
 
-        /* ═══════════════════════════════════════════════════════════════
-           صفحة الهبوط (Landing Page)
-        ═══════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════
+                   SCROLLBAR — نظيف
+                   ═══════════════════════════════════════════════ */
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--red-primary);
+            border-radius: 20px;
+        }
+
+        /* ═══════════════════════════════════════════════
+                   LANDING PAGE
+                   ═══════════════════════════════════════════════ */
         #landing-page {
             position: relative;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .landing-bg {
             position: fixed;
             inset: 0;
             z-index: 0;
-            background: radial-gradient(ellipse 70% 50% at 50% -20%, rgba(225, 29, 72, 0.08) 0%, transparent 70%),
-                        radial-gradient(ellipse 50% 40% at 80% 90%, rgba(225, 29, 72, 0.04) 0%, transparent 60%);
-            background-color: var(--bg-deep);
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(225, 29, 72, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(225, 29, 72, 0.04) 0%, transparent 60%);
+            background-color: var(--bg-primary);
         }
 
-        .grid-overlay {
+        .landing-grid {
             position: fixed;
             inset: 0;
             z-index: 0;
-            background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-            background-size: 70px 70px;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 60px 60px;
             pointer-events: none;
+            animation: gridPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes gridPulse {
+            0% {
+                opacity: 0.4;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
-        /* ═══════════════════════════════════════════════════════════════
-           شريط التنقل
-        ═══════════════════════════════════════════════════════════════ */
+        /* ——— Landing Nav ——— */
         .landing-nav {
             position: relative;
-            z-index: 100;
+            z-index: 20;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 24px;
-            backdrop-filter: blur(16px);
-            background: rgba(10, 10, 10, 0.7);
+            padding: 12px 16px;
+            padding-top: calc(12px + var(--safe-top));
+            background: rgba(11, 11, 14, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-light);
         }
-
         .nav-logo-group {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .nav-logo-img {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-sm);
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-xs);
             object-fit: contain;
             background: transparent;
-            filter: drop-shadow(0 0 10px rgba(225, 29, 72, 0.2));
+            filter: drop-shadow(0 0 12px rgba(225, 29, 72, 0.15));
         }
         .nav-logo-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 900;
             color: var(--text-primary);
+            line-height: 1.2;
         }
         .nav-logo-sub {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
             font-weight: 600;
+            line-height: 1.2;
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
-
-        .theme-toggle-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            color: var(--text-primary);
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-        .theme-toggle-btn:hover {
-            border-color: var(--red-primary);
-            color: var(--red-primary);
-            transform: rotate(20deg);
-        }
-
         .landing-enter-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
+            gap: 6px;
+            padding: 10px 14px;
             background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
             color: #fff;
             border: none;
             border-radius: var(--radius-sm);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             font-family: var(--font-main);
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 4px 16px rgba(225, 29, 72, 0.2);
+            box-shadow: 0 4px 16px rgba(225, 29, 72, 0.25);
+            position: relative;
+            overflow: hidden;
         }
-        .landing-enter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4);
+        .landing-enter-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            pointer-events: none;
+        }
+        .landing-enter-btn:active {
+            transform: scale(0.95);
         }
 
-        /* ═══════════════════════════════════════════════════════════════
-           قسم البطل (Hero Section)
-        ═══════════════════════════════════════════════════════════════ */
+        /* ——— Hero ——— */
         .hero-section {
             position: relative;
             z-index: 10;
-            padding: 80px 24px 40px;
+            padding: 40px 20px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 32px;
-            max-width: 1200px;
+            gap: 24px;
+            max-width: 480px;
             margin: 0 auto;
             width: 100%;
             text-align: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .hero-logo-wrap {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-lg);
+            background: var(--bg-card);
+            border: 2px solid var(--border-hi);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 4px;
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        .hero-logo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
         }
 
         .hero-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 16px;
-            background: rgba(225, 29, 72, 0.1);
-            border: 1px solid rgba(225, 29, 72, 0.15);
+            gap: 6px;
+            padding: 4px 14px;
+            background: rgba(225, 29, 72, 0.08);
+            border: 1px solid var(--border-hi);
             border-radius: 50px;
             color: var(--red-light);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             opacity: 0;
+            transform: translateY(12px);
         }
         .hero-headline {
-            font-size: clamp(32px, 7vw, 52px);
+            font-size: clamp(26px, 7vw, 38px);
             font-weight: 900;
             line-height: 1.3;
             opacity: 0;
+            transform: translateY(20px);
         }
         .hero-headline .word-accent {
             background: linear-gradient(135deg, var(--red-primary), var(--red-light));
@@ -213,178 +288,196 @@
             background-clip: text;
         }
         .hero-desc {
-            font-size: 16px;
+            font-size: 14px;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 24px;
+            max-width: 400px;
+            margin: 0 auto;
             font-weight: 500;
             opacity: 0;
+            transform: translateY(16px);
+            line-height: 1.7;
         }
-
         .hero-cta-group {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
+            width: 100%;
             opacity: 0;
+            transform: translateY(16px);
         }
-
-        .cta-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
+        .hero-cta-group .cta-primary {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 20px;
             background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
             color: #fff;
             border: none;
             border-radius: var(--radius-md);
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
             font-family: var(--font-main);
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 6px 20px rgba(225, 29, 72, 0.3);
-        }
-        .cta-primary:hover { transform: translateY(-3px) scale(1.02); }
-
-        .cta-secondary {
+            box-shadow: 0 6px 24px rgba(225, 29, 72, 0.3);
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 24px;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-cta-group .cta-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent);
+            pointer-events: none;
+        }
+        .hero-cta-group .cta-primary:active {
+            transform: scale(0.95);
+        }
+
+        .hero-cta-group .cta-secondary {
+            flex: 1;
+            min-width: 100px;
+            padding: 14px 16px;
             background: transparent;
             color: var(--text-primary);
             border: 1.5px solid var(--border-hi);
             border-radius: var(--radius-md);
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             font-family: var(--font-main);
             cursor: pointer;
             transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
-        .cta-secondary:hover { border-color: var(--red-primary); color: var(--red-primary); }
+        .hero-cta-group .cta-secondary:active {
+            transform: scale(0.95);
+            border-color: var(--red-primary);
+        }
 
-        .hero-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 24px 20px;
-            width: 100%;
-            max-width: 320px;
-            text-align: center;
-            opacity: 0;
-            backdrop-filter: blur(12px);
-            box-shadow: var(--shadow-soft);
-        }
-        .hero-card-teacher {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 12px;
-            border: 3px solid rgba(225, 29, 72, 0.3);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-        }
-        .hero-card-title { font-size: 18px; font-weight: 800; }
-        .hero-card-sub { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
-
-        /* ═══════════════════════════════════════════════════════════════
-           قسم المميزات (Features)
-        ═══════════════════════════════════════════════════════════════ */
+        /* ——— Features Section ——— */
         .features-section {
             position: relative;
             z-index: 10;
-            padding: 60px 24px;
-            max-width: 1200px;
+            padding: 40px 16px 50px;
+            max-width: 480px;
             margin: 0 auto;
             width: 100%;
         }
-
         .section-eyebrow {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 6px;
+            margin-bottom: 8px;
             color: var(--red-primary);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
+            opacity: 0;
+            transform: translateY(14px);
         }
         .section-headline {
             text-align: center;
-            font-size: clamp(28px, 4vw, 40px);
+            font-size: clamp(22px, 5vw, 32px);
             font-weight: 900;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            opacity: 0;
+            transform: translateY(16px);
         }
         .section-sub {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 40px;
+            font-size: 14px;
+            margin-bottom: 28px;
             font-weight: 500;
+            opacity: 0;
+            transform: translateY(12px);
         }
-
         .features-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 12px;
         }
-        @media (min-width: 600px) {
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 400px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
-        @media (min-width: 1024px) {
-            .features-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
         .feature-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: var(--radius-md);
-            padding: 24px 18px;
+            padding: 18px 14px;
             transition: 0.3s;
             opacity: 0;
-            transform: translateY(20px);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            transform: translateY(24px) scale(0.96);
+            box-shadow: var(--shadow-card);
+            cursor: default;
         }
-        .feature-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--border-hi);
-            box-shadow: var(--shadow-soft);
+        .feature-card:active {
+            transform: scale(0.97);
         }
-
         .feature-icon-wrap {
-            width: 50px; height: 50px;
-            border-radius: var(--radius-sm);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-            margin-bottom: 14px;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-xs);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 10px;
             transition: 0.3s;
         }
-        .feature-card:hover .feature-icon-wrap { transform: scale(1.1); }
-        .fi-red   { background: rgba(225, 29, 72, 0.1); color: var(--red-primary); border: 1px solid rgba(225, 29, 72, 0.15); }
-        .fi-green { background: rgba(16, 185, 129, 0.1);  color: var(--green-success); border: 1px solid rgba(16, 185, 129, 0.15); }
-        .fi-gold  { background: rgba(245, 158, 11, 0.08); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.12); }
+        .fi-red {
+            background: rgba(225, 29, 72, 0.08);
+            color: var(--red-primary);
+            border: 1px solid rgba(225, 29, 72, 0.12);
+        }
+        .fi-green {
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--green-success);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+        }
+        .fi-gold {
+            background: rgba(245, 158, 11, 0.06);
+            color: var(--gold-accent);
+            border: 1px solid rgba(245, 158, 11, 0.10);
+        }
+        .feature-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .feature-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.6;
+        }
 
-        .feature-title { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
-        .feature-desc  { font-size: 14px; color: var(--text-secondary); font-weight: 500; line-height: 1.6; }
-
-        /* ═══════════════════════════════════════════════════════════════
-           قسم التذييل (Credits)
-        ═══════════════════════════════════════════════════════════════ */
+        /* ——— Credits Footer ——— */
         .credits-section {
             position: relative;
             z-index: 10;
-            padding: 40px 24px;
+            padding: 28px 16px 24px;
             border-top: 1px solid var(--border-light);
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
         }
         .credits-logos {
             display: flex;
-            gap: 32px;
+            gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -392,66 +485,103 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             text-align: center;
             opacity: 0;
+            transform: translateY(16px);
         }
         .credit-logo {
-            height: 60px;
+            height: 50px;
             width: auto;
             object-fit: contain;
             background: transparent;
-            border-radius: 8px;
-            filter: drop-shadow(0 0 10px rgba(225, 29, 72, 0.15));
+            border-radius: var(--radius-xs);
+            filter: drop-shadow(0 0 12px rgba(225, 29, 72, 0.10));
         }
-        .credit-label { font-size: 13px; color: var(--text-secondary); font-weight: 600; line-height: 1.4; }
-        .credit-label strong { color: var(--text-primary); }
+        .credit-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .credit-label strong {
+            color: var(--text-primary);
+        }
         .credits-divider {
-            width: 1px; height: 40px;
+            width: 1px;
+            height: 36px;
             background: var(--border-light);
         }
         .credits-footer {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             font-weight: 500;
             text-align: center;
+            line-height: 1.5;
         }
 
-        /* ═══════════════════════════════════════════════════════════════
-           صفحة تسجيل الدخول
-        ═══════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════
+                   LOGIN PAGE — App Style
+                   ═══════════════════════════════════════════════ */
         #login-page {
             display: none;
             min-height: 100vh;
+            min-height: 100dvh;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
             position: relative;
-            z-index: 10;
+            z-index: 20;
+            background: var(--bg-primary);
         }
+        #login-page .login-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 20%, rgba(225, 29, 72, 0.06) 0%, transparent 70%);
+            background-color: var(--bg-primary);
+        }
+
         .login-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 2;
+            background: var(--bg-glass);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border-hi);
             border-radius: var(--radius-lg);
-            padding: 32px 24px;
+            padding: 32px 20px 28px;
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             text-align: center;
+            box-shadow: var(--shadow-soft), 0 8px 48px rgba(0, 0, 0, 0.4);
+            transform: scale(0.92) translateY(30px);
+            opacity: 0;
+        }
+        .login-logo-wrap {
+            width: 90px;
+            height: 90px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 2px solid var(--border-hi);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            margin: 0 auto 12px;
             box-shadow: var(--shadow-soft);
         }
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: var(--radius-md);
+        .login-logo-wrap img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            margin: 0 auto 12px;
-            filter: drop-shadow(0 0 15px rgba(225, 29, 72, 0.2));
+            border-radius: var(--radius-xs);
         }
         .login-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 900;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .login-title .t-accent {
             background: linear-gradient(135deg, var(--red-primary), var(--red-light));
@@ -460,36 +590,23 @@
             background-clip: text;
         }
         .login-subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             font-weight: 500;
+            line-height: 1.5;
         }
 
+        /* ——— Floating Labels ——— */
         .input-group {
             position: relative;
             margin-bottom: 18px;
             text-align: right;
         }
-        .input-label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-secondary);
-        }
-        .input-icon {
-            position: absolute;
-            right: 14px;
-            bottom: 14px;
-            color: var(--text-muted);
-            font-size: 16px;
-            pointer-events: none;
-        }
-        .form-control {
+        .input-group .form-control {
             width: 100%;
-            padding: 14px 44px 14px 14px;
-            background: rgba(0,0,0,0.4);
+            padding: 16px 44px 14px 14px;
+            background: rgba(0, 0, 0, 0.35);
             border: 1.5px solid var(--border-light);
             border-radius: var(--radius-sm);
             color: var(--text-primary);
@@ -498,27 +615,96 @@
             font-family: var(--font-main);
             outline: none;
             transition: 0.3s;
+            position: relative;
+            z-index: 1;
         }
-        .form-control:focus {
+        .input-group .form-control:focus {
             border-color: var(--red-primary);
-            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15);
-            background: rgba(0,0,0,0.5);
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+            background: rgba(0, 0, 0, 0.5);
         }
-        .form-control:focus ~ .input-icon { color: var(--red-primary); }
+        .input-group .form-control:focus~.input-icon {
+            color: var(--red-primary);
+        }
+        .input-group .form-control:focus~.input-label-f {
+            top: -8px;
+            font-size: 11px;
+            color: var(--red-primary);
+            background: var(--bg-card);
+            padding: 0 8px;
+        }
+        .input-group .form-control:not(:placeholder-shown)~.input-label-f {
+            top: -8px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            padding: 0 8px;
+        }
 
+        .input-label-f {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: 0.25s ease;
+            pointer-events: none;
+            z-index: 2;
+            background: transparent;
+            padding: 0 4px;
+        }
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
+            pointer-events: none;
+            z-index: 2;
+            transition: 0.3s;
+        }
+
+        /* ——— Error ——— */
         #error-msg {
             display: none;
             color: var(--red-light);
-            background: rgba(225, 29, 72, 0.1);
-            border: 1px solid rgba(225, 29, 72, 0.15);
-            padding: 12px 16px;
-            border-radius: var(--radius-sm);
+            background: rgba(225, 29, 72, 0.08);
+            border: 1px solid rgba(225, 29, 72, 0.12);
+            padding: 10px 14px;
+            border-radius: var(--radius-xs);
             margin-bottom: 16px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-align: right;
+            animation: shakeX 0.5s ease;
+        }
+        @keyframes shakeX {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-8px);
+            }
+            40% {
+                transform: translateX(8px);
+            }
+            60% {
+                transform: translateX(-6px);
+            }
+            80% {
+                transform: translateX(6px);
+            }
+        }
+        .input-group.error .form-control {
+            border-color: var(--red-primary);
+            animation: shakeX 0.5s ease;
         }
 
+        /* ——— Login Button ——— */
         .btn-login {
             width: 100%;
             padding: 14px;
@@ -535,9 +721,24 @@
             justify-content: center;
             gap: 10px;
             transition: 0.3s;
-            box-shadow: 0 4px 16px rgba(225, 29, 72, 0.2);
+            box-shadow: 0 4px 20px rgba(225, 29, 72, 0.25);
+            position: relative;
+            overflow: hidden;
         }
-        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4); }
+        .btn-login::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent);
+            pointer-events: none;
+        }
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+        .btn-login:disabled {
+            opacity: 0.7;
+            transform: none;
+        }
 
         .login-back-btn {
             display: inline-flex;
@@ -547,92 +748,157 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 18px;
+            margin-top: 16px;
             border: none;
             background: transparent;
             font-family: var(--font-main);
             transition: 0.3s;
+            padding: 4px 8px;
         }
-        .login-back-btn:hover { color: var(--red-primary); }
+        .login-back-btn:active {
+            color: var(--red-primary);
+            transform: scale(0.95);
+        }
 
-        /* ═══════════════════════════════════════════════════════════════
-           لوحة التحكم (Dashboard)
-        ═══════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════
+                   DASHBOARD — App Style
+                   ═══════════════════════════════════════════════ */
         #dashboard-page {
             display: none;
-            padding: 16px;
-            max-width: 1300px;
+            padding: 0 0 20px;
+            max-width: 480px;
             margin: 0 auto;
             position: relative;
-            z-index: 10;
+            z-index: 20;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            min-height: 100dvh;
         }
 
-        .dash-nav {
+        /* ——— Dash Header (Fixed) ——— */
+        .dash-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            padding: 10px 16px;
+            padding-top: calc(10px + var(--safe-top));
+            background: rgba(11, 11, 14, 0.78);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border-light);
+            transform: translateY(-100%);
+            opacity: 0;
         }
-        .dash-brand { display: flex; align-items: center; gap: 12px; }
+        .dash-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .dash-brand-logo {
-            width: 44px; height: 44px;
-            border-radius: var(--radius-sm);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-xs);
             object-fit: contain;
+            background: transparent;
+            filter: drop-shadow(0 0 10px rgba(225, 29, 72, 0.10));
         }
-        .dash-brand-name { font-size: 17px; font-weight: 900; }
-
-        .dash-nav-actions { display: flex; gap: 10px; align-items: center; }
+        .dash-brand-name {
+            font-size: 15px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+        .dash-brand-sub {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .dash-actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
         .icon-btn-dash {
-            width: 38px; height: 38px;
-            border-radius: var(--radius-sm);
-            background: rgba(0,0,0,0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-xs);
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border-light);
             color: var(--text-primary);
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.25s;
         }
-        .icon-btn-dash:hover { border-color: var(--red-primary); color: var(--red-primary); }
-        .logout-icon { color: var(--red-light); border-color: rgba(225, 29, 72, 0.15); }
-        .logout-icon:hover { background: var(--red-primary); color: #fff; border-color: var(--red-primary); }
+        .icon-btn-dash:active {
+            transform: scale(0.90);
+            border-color: var(--red-primary);
+            color: var(--red-primary);
+        }
+        .logout-icon {
+            color: var(--red-light);
+            border-color: rgba(225, 29, 72, 0.12);
+        }
+        .logout-icon:active {
+            background: var(--red-primary);
+            color: #fff;
+            border-color: var(--red-primary);
+        }
 
-        /* بانر الترحيب */
-        .welcome-banner {
-            background: linear-gradient(135deg, rgba(225, 29, 72, 0.06), rgba(10, 10, 10, 0.8));
+        /* ——— Dashboard Content ——— */
+        #dash-content {
+            padding: 16px 14px 20px;
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.05), rgba(11, 11, 14, 0.9));
             border: 1px solid var(--border-hi);
             border-radius: var(--radius-lg);
-            padding: 24px 20px;
+            padding: 20px 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 14px;
+            margin-bottom: 16px;
             position: relative;
             overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            box-shadow: var(--shadow-card);
+        }
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(225, 29, 72, 0.06), transparent 70%);
+            pointer-events: none;
+            border-radius: 50%;
         }
         .welcome-tag {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 4px 14px;
-            background: rgba(225, 29, 72, 0.1);
+            gap: 4px;
+            padding: 3px 12px;
+            background: rgba(225, 29, 72, 0.08);
             color: var(--red-light);
             border-radius: 50px;
             font-weight: 800;
-            font-size: 13px;
-            border: 1px solid rgba(225, 29, 72, 0.15);
+            font-size: 12px;
+            border: 1px solid rgba(225, 29, 72, 0.10);
         }
         .welcome-name {
-            font-size: clamp(24px, 4vw, 34px);
+            font-size: clamp(20px, 5vw, 28px);
             font-weight: 900;
-            line-height: 1.4;
+            line-height: 1.3;
         }
         .welcome-name .n-color {
             background: linear-gradient(135deg, var(--red-primary), var(--red-light));
@@ -641,163 +907,202 @@
             background-clip: text;
         }
         .welcome-text {
-            font-size: 15px;
+            font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.8;
+            line-height: 1.7;
             font-weight: 500;
         }
-        .welcome-img {
-            width: 120px;
-            height: 120px;
+        .welcome-img-wrap {
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(225, 29, 72, 0.25);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border: 3px solid rgba(225, 29, 72, 0.15);
+            overflow: hidden;
             flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: var(--bg-card);
         }
-        @media (min-width: 768px) {
-            .welcome-banner {
-                flex-direction: row;
-                text-align: right;
-                padding: 32px 36px;
-            }
-            .welcome-content { flex: 1; }
-            .welcome-img { width: 150px; height: 150px; }
+        .welcome-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        /* بطاقة معلومات الطالب (بدون مجموعة) */
-        .student-info-card {
+        /* Student Profile Card */
+        .profile-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: var(--radius-md);
-            padding: 16px 18px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-        }
-        @media (min-width: 600px) {
-            .student-info-card {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                flex-wrap: wrap;
-            }
-        }
-        .si-header {
+            padding: 16px 16px;
             display: flex;
             align-items: center;
             gap: 14px;
-            flex: 1;
+            margin-bottom: 14px;
+            transform: translateY(16px);
+            opacity: 0;
+            box-shadow: var(--shadow-card);
         }
-        .student-avatar {
-            width: 50px; height: 50px;
+        .profile-avatar {
+            width: 52px;
+            height: 52px;
             border-radius: var(--radius-sm);
             background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; color: #fff;
-            flex-shrink: 0;
-        }
-        .student-name-label { font-size: 12px; color: var(--text-secondary); font-weight: 700; }
-        .student-name-val { font-size: 18px; font-weight: 900; }
-        .student-id-row {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
             align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.15);
         }
-        .student-id-chip {
+        .profile-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .profile-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+        .profile-name {
+            font-size: 17px;
+            font-weight: 900;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .profile-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .profile-chip {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 5px 12px;
-            background: rgba(225, 29, 72, 0.08);
-            border: 1px solid rgba(225, 29, 72, 0.15);
+            gap: 4px;
+            padding: 3px 10px;
+            background: rgba(225, 29, 72, 0.06);
+            border: 1px solid rgba(225, 29, 72, 0.10);
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--red-primary);
             white-space: nowrap;
         }
-        .student-id-chip.gold-chip {
-            background: rgba(245, 158, 11, 0.08);
-            border-color: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
+        .profile-chip.gold {
+            background: rgba(245, 158, 11, 0.06);
+            border-color: rgba(245, 158, 11, 0.10);
+            color: var(--gold-accent);
         }
 
-        /* الإحصاءات */
+        /* ——— Stats Grid ——— */
         .stats-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
         }
-        @media (min-width: 600px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
-
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: var(--radius-md);
-            padding: 18px;
+            padding: 14px 10px;
+            text-align: center;
+            transform: translateY(16px);
+            opacity: 0;
+            box-shadow: var(--shadow-card);
+            transition: 0.2s;
+            cursor: default;
+        }
+        .stat-card:active {
+            transform: scale(0.95);
+        }
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-xs);
             display: flex;
             align-items: center;
-            gap: 16px;
-            transition: 0.3s;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            justify-content: center;
+            font-size: 18px;
+            margin: 0 auto 6px;
         }
-        .stat-card:hover { transform: translateY(-4px); border-color: var(--border-hi); box-shadow: var(--shadow-soft); }
-        .stat-icon {
-            width: 50px; height: 50px;
-            border-radius: var(--radius-sm);
-            display: flex; align-items: center; justify-content: center;
+        .si-red {
+            background: rgba(225, 29, 72, 0.08);
+            color: var(--red-primary);
+            border: 1px solid rgba(225, 29, 72, 0.10);
+        }
+        .si-green {
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--green-success);
+            border: 1px solid rgba(16, 185, 129, 0.10);
+        }
+        .si-amber {
+            background: rgba(245, 158, 11, 0.06);
+            color: var(--gold-accent);
+            border: 1px solid rgba(245, 158, 11, 0.08);
+        }
+        .stat-val {
             font-size: 22px;
-            flex-shrink: 0;
+            font-weight: 900;
+            line-height: 1.2;
         }
-        .si-red    { background: rgba(225, 29, 72, 0.1); color: var(--red-primary); border: 1px solid rgba(225, 29, 72, 0.15); }
-        .si-green  { background: rgba(16, 185, 129, 0.1);  color: var(--green-success); border: 1px solid rgba(16, 185, 129, 0.15); }
-        .si-amber  { background: rgba(245, 158, 11, 0.08); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.12); }
-        .stat-val  { font-size: 28px; font-weight: 900; line-height: 1; margin-bottom: 2px; }
-        .stat-lbl  { font-size: 13px; color: var(--text-secondary); font-weight: 700; }
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 700;
+            line-height: 1.3;
+        }
 
-        /* الجداول */
+        /* ——— Data Cards (Tables) ——— */
         .data-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: var(--radius-md);
-            padding: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            padding: 14px 12px;
+            margin-bottom: 14px;
+            transform: translateY(16px);
+            opacity: 0;
+            box-shadow: var(--shadow-card);
         }
         .data-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
             border-bottom: 1px solid var(--border-light);
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
         .data-card-title {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+        }
+        .data-card-title i {
+            font-size: 16px;
         }
 
-        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -4px;
+            padding: 0 4px;
+        }
         table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 0 6px;
-            min-width: 480px;
+            border-spacing: 0 4px;
+            min-width: 340px;
         }
         th {
             text-align: right;
-            padding: 0 12px 10px;
-            font-size: 13px;
+            padding: 0 8px 8px;
+            font-size: 11px;
             font-weight: 800;
             color: var(--text-secondary);
             text-transform: uppercase;
@@ -806,130 +1111,317 @@
             border-bottom: 1px solid var(--border-light);
         }
         td {
-            padding: 14px 12px;
-            font-size: 14px;
+            padding: 10px 8px;
+            font-size: 13px;
             font-weight: 600;
-            background: rgba(0,0,0,0.15);
-            border-radius: var(--radius-sm);
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: var(--radius-xs);
             vertical-align: middle;
         }
-        tbody tr { transition: 0.2s; }
-        tbody tr:hover td { background: rgba(225, 29, 72, 0.06); }
+        tbody tr {
+            transition: 0.15s;
+        }
+        tbody tr:active td {
+            background: rgba(225, 29, 72, 0.04);
+        }
 
         .badge {
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             white-space: nowrap;
         }
-        .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--green-success); border: 1px solid rgba(16, 185, 129, 0.15); }
-        .badge-danger  { background: rgba(225, 29, 72, 0.1); color: var(--red-light);  border: 1px solid rgba(225, 29, 72, 0.15); }
-        .badge-warning { background: rgba(245, 158, 11, 0.08); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.12); }
+        .badge-success {
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--green-success);
+            border: 1px solid rgba(16, 185, 129, 0.10);
+        }
+        .badge-danger {
+            background: rgba(225, 29, 72, 0.08);
+            color: var(--red-light);
+            border: 1px solid rgba(225, 29, 72, 0.10);
+        }
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.06);
+            color: var(--gold-accent);
+            border: 1px solid rgba(245, 158, 11, 0.08);
+        }
 
-        /* التصدير */
+        /* ——— Export ——— */
         .export-area {
             text-align: center;
-            padding: 24px 0 16px;
+            padding: 16px 0 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            transform: translateY(16px);
+            opacity: 0;
         }
-        .export-hint { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+        .export-hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
         .btn-export {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 36px;
+            gap: 8px;
+            padding: 14px 28px;
             background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
             color: #fff;
             border: none;
             border-radius: var(--radius-md);
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
             font-family: var(--font-main);
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 6px 20px rgba(225, 29, 72, 0.3);
+            box-shadow: 0 6px 24px rgba(225, 29, 72, 0.25);
+            position: relative;
+            overflow: hidden;
         }
-        .btn-export:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(225, 29, 72, 0.5); }
+        .btn-export::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent);
+            pointer-events: none;
+        }
+        .btn-export:active {
+            transform: scale(0.95);
+        }
+        .btn-export:disabled {
+            opacity: 0.7;
+            transform: none;
+        }
 
-        /* ═══════════════════════════════════════════════════════════════
-           زر الموسيقى (مصغر وأنيق)
-        ═══════════════════════════════════════════════════════════════ */
+        /* ——— Dashboard Credits ——— */
+        .dash-credits {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 16px 14px;
+            margin-top: 4px;
+            transform: translateY(16px);
+            opacity: 0;
+            box-shadow: var(--shadow-card);
+        }
+        .dash-credits-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .dash-credit-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            text-align: center;
+        }
+        .dash-credit-item img {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            background: transparent;
+            border-radius: var(--radius-xs);
+        }
+        .dash-credit-item span {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .dash-credit-item strong {
+            color: var(--text-primary);
+        }
+        .dash-credits-divider {
+            width: 1px;
+            height: 32px;
+            background: var(--border-light);
+        }
+
+        /* ═══════════════════════════════════════════════
+                   MUSIC BUTTON — Floating App Style
+                   ═══════════════════════════════════════════════ */
         .music-btn {
             position: fixed;
             bottom: 20px;
-            left: 20px;
+            left: 16px;
             z-index: 9999;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: var(--bg-card);
-            border: 1px solid var(--border-hi);
+            border: 1.5px solid var(--border-hi);
             color: var(--text-primary);
             font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-soft), 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: 0.3s;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
-        .music-btn:hover {
-            transform: scale(1.1);
+        .music-btn:active {
+            transform: scale(0.90);
+        }
+        .music-btn.playing {
             border-color: var(--red-primary);
             color: var(--red-primary);
         }
-        .music-btn.muted { background: rgba(225, 29, 72, 0.1); border-color: var(--red-primary); color: var(--red-primary); }
+        .music-btn.muted {
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+        }
         .music-btn .music-wave {
             position: absolute;
             inset: -4px;
             border-radius: 50%;
             border: 1.5px solid var(--red-primary);
-            animation: music-pulse 2s ease infinite;
+            animation: musicPulse 2s ease infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .music-btn.playing .music-wave {
+            opacity: 1;
+        }
+        .music-btn.muted .music-wave {
+            animation: none;
             opacity: 0;
         }
-        .music-btn.playing .music-wave { opacity: 1; }
-        .music-btn.muted .music-wave { animation: none; opacity: 0; }
-        @keyframes music-pulse {
-            0%   { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(1.6); opacity: 0; }
+        @keyframes musicPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
         }
         .music-label {
             position: fixed;
             bottom: 28px;
-            left: 76px;
+            left: 74px;
             z-index: 9998;
-            background: var(--bg-card);
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-hi);
             border-radius: 50px;
             padding: 4px 14px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--text-secondary);
-            backdrop-filter: blur(8px);
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
             transition: 0.3s;
+            box-shadow: var(--shadow-soft);
         }
-        .music-btn:hover ~ .music-label { opacity: 1; }
+        .music-btn:hover~.music-label {
+            opacity: 1;
+        }
+        @media (max-width: 480px) {
+            .music-label {
+                display: none;
+            }
+        }
 
-        /* ═══════════════════════════════════════════════════════════════
-           حاوية التقرير للطباعة (حجم يوتيوب 1280x720) - محسنة
-        ═══════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════
+                   BACK TO TOP — Floating
+                   ═══════════════════════════════════════════════ */
+        .back-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 16px;
+            z-index: 9999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-hi);
+            color: var(--text-primary);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-soft), 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+        .back-top-btn.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .back-top-btn:active {
+            transform: scale(0.90);
+        }
+        .back-top-btn:hover {
+            border-color: var(--red-primary);
+            color: var(--red-primary);
+        }
+
+        /* ═══════════════════════════════════════════════
+                   LOADING OVERLAY
+                   ═══════════════════════════════════════════════ */
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(11, 11, 14, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+        #loading-overlay .spinner {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid var(--border-light);
+            border-top-color: var(--red-primary);
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        #loading-overlay .loading-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        /* ═══════════════════════════════════════════════
+                   REPORT PRINT CONTAINER (1280x720)
+                   ═══════════════════════════════════════════════ */
         #report-print-container {
             position: fixed;
             top: -9999px;
             left: -9999px;
             width: 1280px;
             height: 720px;
-            background: var(--bg-deep);
+            background: var(--bg-primary);
             padding: 16px 20px;
             overflow: hidden;
             z-index: 99999;
@@ -937,99 +1429,290 @@
             flex-direction: column;
             font-family: var(--font-main);
         }
-        #report-print-container * { max-height: 100%; }
-        #report-print-container .table-wrap { overflow: hidden; }
+        #report-print-container * {
+            max-height: 100%;
+        }
+        #report-print-container .table-wrap {
+            overflow: hidden;
+        }
         #report-print-container table {
             min-width: auto;
-            font-size: 12px;
+            font-size: 11px;
             width: 100%;
         }
-        #report-print-container th { font-size: 11px; padding: 4px 6px; }
-        #report-print-container td { padding: 6px 6px; font-size: 11px; }
-        #report-print-container .stats-grid { gap: 8px; }
-        #report-print-container .stat-card { padding: 10px; }
-        #report-print-container .stat-val { font-size: 18px; }
-        #report-print-container .data-card { padding: 10px; margin-bottom: 8px; }
-        #report-print-container .welcome-banner { padding: 12px; margin-bottom: 8px; }
-        #report-print-container .welcome-name { font-size: 22px; }
-        #report-print-container .welcome-img { width: 80px; height: 80px; }
-        #report-print-container .student-info-card { padding: 10px; margin-bottom: 8px; }
-        #report-print-container .dash-nav { display: none; }
-        #report-print-container .export-area { display: none; }
-        #report-print-container .music-btn { display: none; }
-        #report-print-container .music-label { display: none; }
-        #report-print-container .credits-section { padding: 8px; margin-top: auto; }
-        #report-print-container .credit-logo { height: 36px; }
+        #report-print-container th {
+            font-size: 10px;
+            padding: 4px 6px;
+        }
+        #report-print-container td {
+            padding: 5px 6px;
+            font-size: 11px;
+        }
+        #report-print-container .stats-grid {
+            gap: 6px;
+        }
+        #report-print-container .stat-card {
+            padding: 8px;
+        }
+        #report-print-container .stat-val {
+            font-size: 16px;
+        }
+        #report-print-container .data-card {
+            padding: 8px;
+            margin-bottom: 6px;
+        }
+        #report-print-container .welcome-card {
+            padding: 10px;
+            margin-bottom: 6px;
+        }
+        #report-print-container .welcome-name {
+            font-size: 20px;
+        }
+        #report-print-container .welcome-img-wrap {
+            width: 64px;
+            height: 64px;
+        }
+        #report-print-container .profile-card {
+            padding: 8px;
+            margin-bottom: 6px;
+        }
+        #report-print-container .dash-header {
+            display: none;
+        }
+        #report-print-container .export-area {
+            display: none;
+        }
+        #report-print-container .music-btn {
+            display: none;
+        }
+        #report-print-container .music-label {
+            display: none;
+        }
+        #report-print-container .back-top-btn {
+            display: none;
+        }
+        #report-print-container .credits-section {
+            padding: 6px;
+            margin-top: auto;
+        }
+        #report-print-container .credit-logo {
+            height: 32px;
+        }
+        #report-print-container .dash-credits {
+            padding: 8px;
+        }
+        #report-print-container .dash-credits-inner {
+            gap: 10px;
+        }
+        #report-print-container .dash-credit-item img {
+            height: 32px;
+        }
 
-        /* ═══════════════════════════════════════════════════════════════
-           تحسينات إضافية للموبايل
-        ═══════════════════════════════════════════════════════════════ */
-        @media (max-width: 480px) {
-            .landing-nav { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
-            .nav-logo-name { font-size: 16px; }
-            .nav-logo-sub { display: none; }
-            .nav-right { width: 100%; justify-content: space-between; }
-            .landing-enter-btn { font-size: 13px; padding: 8px 14px; }
-            .hero-headline { font-size: 28px; }
-            .hero-desc { font-size: 14px; }
-            .stats-grid { gap: 12px; }
-            .stat-val { font-size: 22px; }
-            .data-card { padding: 12px; }
-            .data-card-title { font-size: 16px; }
-            td { font-size: 13px; padding: 10px 8px; }
-            th { font-size: 12px; padding: 0 8px 8px; }
-            .login-card { padding: 24px 16px; }
-            .btn-login { font-size: 15px; padding: 12px; }
-            .welcome-name { font-size: 22px; }
-            .student-id-row { flex-direction: column; align-items: flex-start; gap: 6px; }
-            .student-info-card { padding: 12px; }
-            .music-btn { width: 40px; height: 40px; font-size: 16px; bottom: 16px; left: 16px; }
-            .music-label { display: none; }
+        /* ═══════════════════════════════════════════════
+                   RESPONSIVE — MOBILE FIRST
+                   ═══════════════════════════════════════════════ */
+        @media (max-width: 380px) {
+            .hero-headline {
+                font-size: 22px;
+            }
+            .hero-desc {
+                font-size: 13px;
+            }
+            .hero-cta-group .cta-primary,
+            .hero-cta-group .cta-secondary {
+                font-size: 13px;
+                padding: 12px 12px;
+                min-width: 100px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stat-card {
+                padding: 10px 6px;
+            }
+            .stat-val {
+                font-size: 18px;
+            }
+            .login-card {
+                padding: 24px 14px;
+            }
+            .login-title {
+                font-size: 19px;
+            }
+            .profile-name {
+                font-size: 15px;
+            }
+            .data-card-title {
+                font-size: 13px;
+            }
+            td {
+                font-size: 12px;
+                padding: 8px 6px;
+            }
+            th {
+                font-size: 10px;
+                padding: 0 6px 6px;
+            }
+            .btn-export {
+                font-size: 13px;
+                padding: 12px 20px;
+            }
+            .dash-brand-name {
+                font-size: 13px;
+            }
+        }
+
+        @media (min-width: 600px) {
+            #dashboard-page {
+                max-width: 600px;
+                padding: 0 20px 24px;
+            }
+            .features-section {
+                max-width: 560px;
+            }
+            .hero-section {
+                max-width: 520px;
+            }
+            .login-card {
+                max-width: 420px;
+                padding: 36px 28px;
+            }
+            .stats-grid {
+                gap: 14px;
+            }
+            .stat-card {
+                padding: 18px 14px;
+            }
+            .stat-val {
+                font-size: 26px;
+            }
+            .data-card {
+                padding: 18px 16px;
+            }
+            .welcome-card {
+                padding: 28px 24px;
+            }
+            .profile-card {
+                padding: 18px 20px;
+            }
+            .music-btn {
+                width: 52px;
+                height: 52px;
+                font-size: 20px;
+                bottom: 24px;
+                left: 20px;
+            }
+            .back-top-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
+                bottom: 24px;
+                right: 20px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════
+                   UTILITY ANIMATIONS
+                   ═══════════════════════════════════════════════ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-fade-up {
+            animation: fadeUp 0.7s ease forwards;
+        }
+        .anim-scale-in {
+            animation: scaleIn 0.8s ease forwards;
+        }
+        .anim-slide-up {
+            animation: slideUp 0.8s ease forwards;
         }
     </style>
 </head>
 <body>
 
-<!-- ═══════════ صفحة الهبوط ═══════════ -->
-<div id="landing-page">
+    <!-- ═══════════════════════════════════════════════════
+    LOADING OVERLAY
+    ═══════════════════════════════════════════════════ -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loadingText">جاري التحميل...</div>
+    </div>
 
-    <div class="landing-bg"></div>
-    <div class="grid-overlay"></div>
+    <!-- ═══════════════════════════════════════════════════
+    LANDING PAGE
+    ═══════════════════════════════════════════════════ -->
+    <div id="landing-page">
 
-    <nav class="landing-nav">
-        <div class="nav-logo-group">
-            <img src="logo.png" alt="شعار المنصة" class="nav-logo-img"
-                 onerror="this.src='https://ui-avatars.com/api/?name=أ&background=e11d48&color=fff&size=80'">
-            <div>
-                <div class="nav-logo-name">منصة أ. أمنية سعيد</div>
-                <div class="nav-logo-sub">بوابة المتابعة الأكاديمية لابنك</div>
+        <div class="landing-bg"></div>
+        <div class="landing-grid"></div>
+
+        <!-- Nav -->
+        <nav class="landing-nav">
+            <div class="nav-logo-group">
+                <img src="logo.png" alt="شعار المنصة" class="nav-logo-img"
+                onerror="this.src='https://ui-avatars.com/api/?name=أ&background=e11d48&color=fff&size=80'" />
+                <div>
+                    <div class="nav-logo-name">منصة أ. أمنية سعيد</div>
+                    <div class="nav-logo-sub">بوابة المتابعة الأكاديمية لابنك</div>
+                </div>
             </div>
-        </div>
-        <div class="nav-right">
-            <button class="theme-toggle-btn" onclick="toggleTheme()" title="تبديل المظهر">
-                <i class="fa-solid fa-moon" id="themeIcon"></i>
-            </button>
-            <button class="landing-enter-btn" onclick="showLoginPage()">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>دخول بوابة المتابعة</span>
-            </button>
-        </div>
-    </nav>
+            <div class="nav-right">
+                <button class="landing-enter-btn" onclick="showLoginPage()">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>دخول</span>
+                </button>
+            </div>
+        </nav>
 
-    <section class="hero-section">
-        <div class="hero-text-col">
+        <!-- Hero -->
+        <section class="hero-section">
+            <div class="hero-logo-wrap" id="heroLogo">
+                <img src="logo.png" alt="شعار المنصة"
+                onerror="this.src='https://ui-avatars.com/api/?name=أ&background=e11d48&color=fff&size=120'" />
+            </div>
+
             <div class="hero-eyebrow" id="heroEyebrow">
                 <i class="fa-solid fa-star"></i>
                 <span>بوابة متابعة أبنائنا الأكاديمية</span>
             </div>
+
             <h1 class="hero-headline" id="heroHeadline">
-                تابع رحلة أبنائك التعليمية<br>
-                بكل تفاصيلها<br>
+                تابع رحلة أبنائك التعليمية<br />
                 <span class="word-accent">في مكان واحد</span>
             </h1>
+
             <p class="hero-desc" id="heroDesc">
-                منصة رقمية متكاملة تتيح لأولياء الأمور متابعة السجل الأكاديمي الكامل لأبنائهم في أي وقت، من الحضور والغياب إلى نتائج الاختبارات والواجبات — كل شيء في مكان واحد.
+                منصة رقمية متكاملة تتيح لأولياء الأمور متابعة السجل الأكاديمي الكامل لأبنائهم في أي وقت، من الحضور والغياب إلى نتائج الاختبارات والواجبات.
             </p>
+
             <div class="hero-cta-group" id="heroCta">
                 <button class="cta-primary" onclick="showLoginPage()">
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
@@ -1040,727 +1723,873 @@
                     <span>اعرف المزيد</span>
                 </button>
             </div>
-        </div>
-        <div class="hero-card" id="heroCard">
-            <img src="image_2ee88b.jpg" alt="أ. أمنية سعيد" class="hero-card-teacher"
-                 onerror="this.style.display='none'">
-            <div class="hero-card-title">أ. أمنية سعيد</div>
-            <div class="hero-card-sub">منصة متابعة المسيرة التعليمية لابنك</div>
-        </div>
-    </section>
+        </section>
 
-    <section class="features-section" id="featuresSection">
-        <div class="section-eyebrow">
-            <i class="fa-solid fa-sparkles"></i>
-            <span>ما الذي تقدمه المنصة؟</span>
-        </div>
-        <h2 class="section-headline">كل ما يحتاجه ولي الأمر<br>في مكانٍ واحد</h2>
-        <p class="section-sub">نجمع بيانات أبنائكم في تقرير أكاديمي مفصّل وواضح</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon-wrap fi-red"><i class="fa-solid fa-calendar-check"></i></div>
-                <div class="feature-title">سجل الحضور والغياب</div>
-                <div class="feature-desc">عرض تفصيلي لجميع الجلسات الدراسية ومعدل التزام الطالب بالحضور وتواريخ كل محاضرة.</div>
+        <!-- Features -->
+        <section class="features-section" id="featuresSection">
+            <div class="section-eyebrow" id="featEyebrow">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>ما الذي تقدمه المنصة؟</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon-wrap fi-green"><i class="fa-solid fa-chart-line"></i></div>
-                <div class="feature-title">نتائج الاختبارات والتقييمات</div>
-                <div class="feature-desc">اطلع على درجات كل اختبار والنسبة المئوية والتقييم الأكاديمي الشامل بصورة فورية.</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon-wrap fi-red"><i class="fa-solid fa-book-open-reader"></i></div>
-                <div class="feature-title">متابعة الواجبات المنزلية</div>
-                <div class="feature-desc">تتبع حالة إنجاز الواجبات والمهام الدراسية المطلوبة من الطالب خلال الفصل الدراسي.</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon-wrap fi-gold"><i class="fa-solid fa-file-image"></i></div>
-                <div class="feature-title">تصدير التقرير الأكاديمي</div>
-                <div class="feature-desc">إمكانية تحميل التقرير الأكاديمي الكامل كصورة PNG احترافية عالية الدقة للمشاركة والأرشفة.</div>
-            </div>
-        </div>
-    </section>
+            <h2 class="section-headline" id="featHeadline">كل ما يحتاجه ولي الأمر<br />في مكانٍ واحد</h2>
+            <p class="section-sub" id="featSub">نجمع بيانات أبنائكم في تقرير أكاديمي مفصّل وواضح</p>
 
-    <footer class="credits-section">
-        <div class="credits-logos">
-            <div class="credit-item" id="credit1">
-                <img src="omnia-team-logo.png" alt="فريق مساعدة أمنية سعيد" class="credit-logo"
-                     onerror="this.src='https://ui-avatars.com/api/?name=فريق+المساعدة&background=e11d48&color=fff&size=80'">
-                <div class="credit-label">
-                    <strong>تم ملء بيانات الطلاب بواسطة</strong><br>
-                    فريق مساعدة الأستاذة أمنية سعيد
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap fi-red"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="feature-title">سجل الحضور والغياب</div>
+                    <div class="feature-desc">عرض تفصيلي لجميع الجلسات الدراسية ومعدل التزام الطالب بالحضور.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap fi-green"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="feature-title">نتائج الاختبارات</div>
+                    <div class="feature-desc">اطلع على درجات كل اختبار والنسبة المئوية والتقييم الأكاديمي الشامل.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap fi-red"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <div class="feature-title">متابعة الواجبات</div>
+                    <div class="feature-desc">تتبع حالة إنجاز الواجبات والمهام الدراسية المطلوبة من الطالب.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap fi-gold"><i class="fa-solid fa-file-image"></i></div>
+                    <div class="feature-title">تصدير التقرير</div>
+                    <div class="feature-desc">تحميل التقرير الأكاديمي الكامل كصورة PNG احترافية عالية الدقة.</div>
                 </div>
             </div>
-            <div class="credits-divider"></div>
-            <div class="credit-item" id="credit2">
-                <img src="aura-studio-logo.png" alt="Aura Studio" class="credit-logo"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=e11d48&color=fff&size=80'">
-                <div class="credit-label">
-                    <strong>تم تطوير وبرمجة المنصة بواسطة</strong><br>
-                    Aura Studio — للتطوير الرقمي
-                </div>
-            </div>
-        </div>
-        <div class="credits-footer">
-            جميع الحقوق محفوظة © 2027 — منصة أ. أمنية سعيد الأكاديمية
-        </div>
-    </footer>
-</div>
+        </section>
 
-<!-- ═══════════ صفحة تسجيل الدخول ═══════════ -->
-<div id="login-page">
-    <div class="login-card" id="loginCard">
-        <div class="login-logo-wrap">
-            <img src="logo.png" alt="شعار المنصة" class="login-logo"
-                 onerror="this.src='https://ui-avatars.com/api/?name=أ&background=e11d48&color=fff&size=90'">
-        </div>
-        <h1 class="login-title">منصة <span class="t-accent">أ. أمنية سعيد</span></h1>
-        <p class="login-subtitle">أدخل البيانات المسجلة للوصول إلى السجل الأكاديمي الشامل لابنك أو ابنتك.</p>
-
-        <div id="error-msg"></div>
-
-        <div class="input-group">
-            <label class="input-label">رقم هاتف الطالب</label>
-            <input type="tel" id="studentPhone" class="form-control"
-                   placeholder="أدخل رقم الهاتف المسجل" autocomplete="off">
-            <i class="fa-solid fa-mobile-screen-button input-icon"></i>
-        </div>
-        <div class="input-group">
-            <label class="input-label">رقم واتساب ولي الأمر</label>
-            <input type="tel" id="parentPhone" class="form-control"
-                   placeholder="أدخل رقم واتساب ولي الأمر" autocomplete="off">
-            <i class="fa-brands fa-whatsapp input-icon" style="color: #25d366;"></i>
-        </div>
-
-        <button class="btn-login" id="loginBtn" onclick="attemptLogin()">
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-            <span>الدخول إلى السجل الأكاديمي</span>
-        </button>
-
-        <button class="login-back-btn" onclick="backToLanding()">
-            <i class="fa-solid fa-arrow-right"></i>
-            <span>العودة إلى الصفحة الرئيسية</span>
-        </button>
-    </div>
-</div>
-
-<!-- ═══════════ لوحة التحكم ═══════════ -->
-<div id="dashboard-page">
-
-    <nav class="dash-nav">
-        <div class="dash-brand">
-            <img src="logo.png" alt="Logo" class="dash-brand-logo"
-                 onerror="this.src='https://ui-avatars.com/api/?name=أ&background=e11d48&color=fff'">
-            <div class="dash-brand-name">سجل التقدم الأكاديمي لابنك</div>
-        </div>
-        <div class="dash-nav-actions">
-            <button class="icon-btn-dash" onclick="toggleTheme()" title="تبديل المظهر">
-                <i class="fa-solid fa-moon" id="dashThemeIcon"></i>
-            </button>
-            <button class="icon-btn-dash logout-icon" onclick="logout()" title="تسجيل الخروج">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            </button>
-        </div>
-    </nav>
-
-    <div id="printable-area">
-        <div class="welcome-banner">
-            <div class="welcome-content">
-                <div class="welcome-tag"><i class="fa-solid fa-star"></i> شركاء في رحلة التميز</div>
-                <h2 class="welcome-name" id="dbWelcomeTitle">
-                    أهلاً وسهلاً<br>
-                    <span class="n-color">...</span>
-                </h2>
-                <p class="welcome-text">
-                    يسعدنا اهتمامكم المستمر ومتابعتكم الدائمة. هذه البوابة مصممة لإطلاعكم على كل تفاصيل المسيرة الأكاديمية لأبنائكم بشكل مباشر وفوري.
-                </p>
-            </div>
-            <img src="image_2ee88b.jpg" alt="أ. أمنية سعيد" class="welcome-img"
-                 onerror="this.style.display='none'">
-        </div>
-
-        <!-- بطاقة معلومات الطالب (بدون مجموعة) -->
-        <div class="student-info-card" id="studentInfoCard">
-            <div class="si-header">
-                <div class="student-avatar" id="studentAvatarIcon">
-                    <i class="fa-solid fa-user-graduate"></i>
-                </div>
-                <div class="student-name-block">
-                    <div class="student-name-label">اسم الطالب</div>
-                    <div class="student-name-val" id="studentNameDisplay">—</div>
-                </div>
-            </div>
-            <div class="student-id-row">
-                <div class="student-id-chip">
-                    <i class="fa-solid fa-fingerprint"></i>
-                    <span>الكود: </span><strong id="studentUID">—</strong>
-                </div>
-                <div class="student-id-chip gold-chip">
-                    <i class="fa-solid fa-wallet"></i>
-                    <span>الرصيد المتبقي: </span><strong id="studentBalanceDisplay">0</strong>
-                </div>
-            </div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon si-red"><i class="fa-solid fa-coins"></i></div>
-                <div class="stat-info">
-                    <div class="stat-val" id="dbBalance">0</div>
-                    <div class="stat-lbl">الرصيد المتبقي للحصص</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon si-green"><i class="fa-solid fa-calendar-check"></i></div>
-                <div class="stat-info">
-                    <div class="stat-val" id="dbAttRate">0%</div>
-                    <div class="stat-lbl">معدل الالتزام بالحضور</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon si-amber"><i class="fa-solid fa-ranking-star"></i></div>
-                <div class="stat-info">
-                    <div class="stat-val" id="dbExamAvg">0%</div>
-                    <div class="stat-lbl">المتوسط العام للاختبارات</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- جدول الحضور -->
-        <div class="data-card">
-            <div class="data-card-header">
-                <div class="data-card-title">
-                    <i class="fa-solid fa-clipboard-user" style="color: var(--green-success);"></i>
-                    بيان الالتزام والحضور
-                </div>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>تاريخ وموضوع الجلسة الدراسية</th>
-                            <th>حالة الحضور والانضباط</th>
-                        </tr>
-                    </thead>
-                    <tbody id="attendanceTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- جدول الاختبارات -->
-        <div class="data-card">
-            <div class="data-card-header">
-                <div class="data-card-title">
-                    <i class="fa-solid fa-file-signature" style="color: var(--red-primary);"></i>
-                    السجل التفصيلي لنتائج الاختبارات
-                </div>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>اسم الاختبار وتاريخه</th>
-                            <th>الدرجة المحققة</th>
-                            <th>الدرجة الكاملة</th>
-                            <th>النسبة المئوية</th>
-                            <th>التقييم الأكاديمي</th>
-                        </tr>
-                    </thead>
-                    <tbody id="examsTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- جدول الواجبات -->
-        <div class="data-card">
-            <div class="data-card-header">
-                <div class="data-card-title">
-                    <i class="fa-solid fa-book-open-reader" style="color: #fbbf24;"></i>
-                    بيان إنجاز الواجبات والمهام الدراسية
-                </div>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>تفاصيل الواجب وتاريخ التكليف</th>
-                            <th>حالة الإنجاز والتسليم</th>
-                        </tr>
-                    </thead>
-                    <tbody id="hwTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- قسم الاعتمادات داخل اللوحة -->
-        <div class="data-card" style="padding: 20px 24px;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap;">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
-                    <img src="omnia-team-logo.png" alt="فريق المساعدة"
-                         style="height:60px; object-fit:contain; background:transparent;"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Team&background=e11d48&color=fff&size=60'">
-                    <div style="font-size: 13px; color: var(--text-secondary); font-weight: 600; line-height: 1.4;">
-                        <span style="color: var(--text-primary); font-weight: 700;">تم ملء بيانات الطلاب بواسطة</span><br>
+        <!-- Credits -->
+        <footer class="credits-section">
+            <div class="credits-logos">
+                <div class="credit-item" id="credit1">
+                    <img src="omnia-team-logo.png" alt="فريق مساعدة أمنية سعيد" class="credit-logo"
+                    onerror="this.src='https://ui-avatars.com/api/?name=فريق+المساعدة&background=e11d48&color=fff&size=80'" />
+                    <div class="credit-label">
+                        <strong>تم ملء بيانات الطلاب بواسطة</strong><br />
                         فريق مساعدة الأستاذة أمنية سعيد
                     </div>
                 </div>
-                <div style="width: 1px; height: 50px; background: var(--border-light);"></div>
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
-                    <img src="aura-studio-logo.png" alt="Aura Studio"
-                         style="height:60px; object-fit:contain; background:transparent;"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=e11d48&color=fff&size=60'">
-                    <div style="font-size: 13px; color: var(--text-secondary); font-weight: 600; line-height: 1.4;">
-                        <span style="color: var(--text-primary); font-weight: 700;">تم تطوير وبرمجة المنصة بواسطة</span><br>
-                        Aura Studio
+                <div class="credits-divider"></div>
+                <div class="credit-item" id="credit2">
+                    <img src="aura-studio-logo.png" alt="Aura Studio" class="credit-logo"
+                    onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=e11d48&color=fff&size=80'" />
+                    <div class="credit-label">
+                        <strong>تم تطوير وبرمجة المنصة بواسطة</strong><br />
+                        Aura Studio — للتطوير الرقمي
                     </div>
                 </div>
             </div>
+            <div class="credits-footer">
+                جميع الحقوق محفوظة © 2027 — منصة أ. أمنية سعيد الأكاديمية
+            </div>
+        </footer>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+    LOGIN PAGE
+    ═══════════════════════════════════════════════════ -->
+    <div id="login-page">
+        <div class="login-bg"></div>
+
+        <div class="login-card" id="loginCard">
+            <div class="login-logo-wrap">
+                <img src="logo.png" alt="شعار المنصة"
+                onerror="this.src='https://ui-avatars.com/api/?name=أ&background=e11d48&color=fff&size=100'" />
+            </div>
+
+            <h1 class="login-title">منصة <span class="t-accent">أ. أمنية سعيد</span></h1>
+            <p class="login-subtitle">أدخل البيانات المسجلة للوصول إلى السجل الأكاديمي الشامل لابنك أو ابنتك.</p>
+
+            <div id="error-msg"></div>
+
+            <div class="input-group" id="phoneGroup">
+                <input type="tel" id="studentPhone" class="form-control" placeholder=" " autocomplete="off" />
+                <label class="input-label-f">رقم هاتف الطالب</label>
+                <i class="fa-solid fa-mobile-screen-button input-icon"></i>
+            </div>
+
+            <div class="input-group" id="parentGroup">
+                <input type="tel" id="parentPhone" class="form-control" placeholder=" " autocomplete="off" />
+                <label class="input-label-f">رقم واتساب ولي الأمر</label>
+                <i class="fa-brands fa-whatsapp input-icon" style="color: #25d366;"></i>
+            </div>
+
+            <button class="btn-login" id="loginBtn" onclick="attemptLogin()">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                <span>الدخول إلى السجل الأكاديمي</span>
+            </button>
+
+            <button class="login-back-btn" onclick="backToLanding()">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>العودة إلى الصفحة الرئيسية</span>
+            </button>
         </div>
     </div>
 
-    <div class="export-area">
-        <div class="export-hint"><i class="fa-solid fa-circle-info"></i> سيتم تحميل التقرير كصورة PNG احترافية عالية الدقة (حجم يوتيوب)</div>
-        <button class="btn-export" onclick="downloadPNGReport()">
-            <i class="fa-solid fa-image"></i>
-            <span>تحميل التقرير الأكاديمي (PNG)</span>
-        </button>
+    <!-- ═══════════════════════════════════════════════════
+    DASHBOARD PAGE
+    ═══════════════════════════════════════════════════ -->
+    <div id="dashboard-page">
+
+        <!-- Header -->
+        <header class="dash-header" id="dashHeader">
+            <div class="dash-brand">
+                <img src="logo.png" alt="Logo" class="dash-brand-logo"
+                onerror="this.src='https://ui-avatars.com/api/?name=أ&background=e11d48&color=fff'" />
+                <div>
+                    <div class="dash-brand-name">سجل التقدم</div>
+                    <div class="dash-brand-sub">أ. أمنية سعيد</div>
+                </div>
+            </div>
+            <div class="dash-actions">
+                <button class="icon-btn-dash logout-icon" onclick="logout()" title="تسجيل الخروج">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div id="dash-content">
+            <div id="printable-area">
+
+                <!-- Welcome Card -->
+                <div class="welcome-card" id="welcomeCard">
+                    <div class="welcome-tag"><i class="fa-solid fa-star"></i> شركاء في رحلة التميز</div>
+                    <h2 class="welcome-name" id="dbWelcomeTitle">
+                        أهلاً وسهلاً<br />
+                        <span class="n-color">...</span>
+                    </h2>
+                    <p class="welcome-text">
+                        يسعدنا اهتمامكم المستمر ومتابعتكم الدائمة. هذه البوابة مصممة لإطلاعكم على كل تفاصيل المسيرة الأكاديمية لأبنائكم بشكل مباشر وفوري.
+                    </p>
+                    <div class="welcome-img-wrap">
+                        <img src="image_2ee88b.jpg" alt="أ. أمنية سعيد"
+                        onerror="this.style.display='none'" />
+                    </div>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="profile-card" id="profileCard">
+                    <div class="profile-avatar" id="studentAvatarIcon">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-label">اسم الطالب</div>
+                        <div class="profile-name" id="studentNameDisplay">—</div>
+                        <div class="profile-badges">
+                            <span class="profile-chip"><i class="fa-solid fa-fingerprint"></i> الكود: <strong id="studentUID">—</strong></span>
+                            <span class="profile-chip gold"><i class="fa-solid fa-wallet"></i> الرصيد: <strong id="studentBalanceDisplay">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card" id="stat1">
+                        <div class="stat-icon si-red"><i class="fa-solid fa-coins"></i></div>
+                        <div class="stat-val" id="dbBalance">0</div>
+                        <div class="stat-lbl">الرصيد المتبقي</div>
+                    </div>
+                    <div class="stat-card" id="stat2">
+                        <div class="stat-icon si-green"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="stat-val" id="dbAttRate">0%</div>
+                        <div class="stat-lbl">معدل الالتزام</div>
+                    </div>
+                    <div class="stat-card" id="stat3">
+                        <div class="stat-icon si-amber"><i class="fa-solid fa-ranking-star"></i></div>
+                        <div class="stat-val" id="dbExamAvg">0%</div>
+                        <div class="stat-lbl">المتوسط العام</div>
+                    </div>
+                </div>
+
+                <!-- Attendance -->
+                <div class="data-card" id="attCard">
+                    <div class="data-card-header">
+                        <div class="data-card-title">
+                            <i class="fa-solid fa-clipboard-user" style="color: var(--green-success);"></i>
+                            بيان الالتزام والحضور
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>تاريخ وموضوع الجلسة</th>
+                                    <th>حالة الحضور</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendanceTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Exams -->
+                <div class="data-card" id="examCard">
+                    <div class="data-card-header">
+                        <div class="data-card-title">
+                            <i class="fa-solid fa-file-signature" style="color: var(--red-primary);"></i>
+                            السجل التفصيلي لنتائج الاختبارات
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>اسم الاختبار</th>
+                                    <th>الدرجة</th>
+                                    <th>الكاملة</th>
+                                    <th>النسبة</th>
+                                    <th>التقييم</th>
+                                </tr>
+                            </thead>
+                            <tbody id="examsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Homework -->
+                <div class="data-card" id="hwCard">
+                    <div class="data-card-header">
+                        <div class="data-card-title">
+                            <i class="fa-solid fa-book-open-reader" style="color: var(--gold-accent);"></i>
+                            بيان إنجاز الواجبات والمهام
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>تفاصيل الواجب</th>
+                                    <th>حالة الإنجاز</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hwTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dashboard Credits -->
+                <div class="dash-credits" id="dashCredits">
+                    <div class="dash-credits-inner">
+                        <div class="dash-credit-item">
+                            <img src="omnia-team-logo.png" alt="فريق المساعدة"
+                            onerror="this.src='https://ui-avatars.com/api/?name=Team&background=e11d48&color=fff&size=60'" />
+                            <span><strong>تم ملء البيانات بواسطة</strong><br />فريق مساعدة أ. أمنية سعيد</span>
+                        </div>
+                        <div class="dash-credits-divider"></div>
+                        <div class="dash-credit-item">
+                            <img src="aura-studio-logo.png" alt="Aura Studio"
+                            onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=e11d48&color=fff&size=60'" />
+                            <span><strong>تم التطوير بواسطة</strong><br />Aura Studio</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /printable-area -->
+
+            <!-- Export -->
+            <div class="export-area" id="exportArea">
+                <div class="export-hint"><i class="fa-solid fa-circle-info"></i> سيتم تحميل التقرير كصورة PNG احترافية عالية الدقة</div>
+                <button class="btn-export" onclick="downloadPNGReport()">
+                    <i class="fa-solid fa-image"></i>
+                    <span>تحميل التقرير الأكاديمي (PNG)</span>
+                </button>
+            </div>
+        </div><!-- /dash-content -->
     </div>
 
-</div>
+    <!-- ═══════════════════════════════════════════════════
+    REPORT PRINT CONTAINER
+    ═══════════════════════════════════════════════════ -->
+    <div id="report-print-container"></div>
 
-<!-- ═══════════ حاوية الطباعة المخفية للتقرير ═══════════ -->
-<div id="report-print-container">
-    <!-- سيتم نسخ محتوى التقرير هنا عند التصدير -->
-</div>
+    <!-- ═══════════════════════════════════════════════════
+    FLOATING UI
+    ═══════════════════════════════════════════════════ -->
 
-<!-- زر الموسيقى -->
-<audio id="bgMusic" loop>
-    <source src="background_music.mp3" type="audio/mpeg">
-</audio>
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="التحكم في الموسيقى">
-    <div class="music-wave"></div>
-    <i class="fa-solid fa-music" id="musicIcon"></i>
-</button>
-<div class="music-label" id="musicLabel">الموسيقى الخلفية</div>
+    <!-- Music Button -->
+    <audio id="bgMusic" loop>
+        <source src="background_music.mp3" type="audio/mpeg" />
+    </audio>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="التحكم في الموسيقى">
+        <div class="music-wave"></div>
+        <i class="fa-solid fa-music" id="musicIcon"></i>
+    </button>
+    <div class="music-label" id="musicLabel">الموسيقى الخلفية</div>
 
-<script>
-/* ═══════════════════════════════════════════════════════
-   Firebase
-═══════════════════════════════════════════════════════ */
-const _FC = {
-    apiKey:            "AIzaSyD971ixQUVYZxTtjAkl7U8bC-ZbsZgCUX4",
-    authDomain:        "brothers-studio-attendance.firebaseapp.com",
-    databaseURL:       "https://brothers-studio-attendance-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId:         "brothers-studio-attendance",
-    storageBucket:     "brothers-studio-attendance.firebasestorage.app",
-    messagingSenderId: "149223396857",
-    appId:             "1:149223396857:web:2d8629ef8f76581e35d928"
-};
-if (!firebase.apps.length) firebase.initializeApp(_FC);
-const db = firebase.database();
+    <!-- Back to Top -->
+    <button class="back-top-btn" id="backTopBtn" onclick="scrollToTop()" title="العودة للأعلى">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
-/* ═══════════════════════════════════════════════════════
-   حالة التطبيق
-═══════════════════════════════════════════════════════ */
-let currentStudent = null;
-let studentFid     = null;
-let rawStudentName = "";
+    <!-- ═══════════════════════════════════════════════════
+    JAVASCRIPT
+    ═══════════════════════════════════════════════════ -->
+    <script>
+        /* ═══════════════════════════════════════════════════════
+                   FIREBASE CONFIG
+                   ═══════════════════════════════════════════════════════ */
+        const _FC = {
+            apiKey: "AIzaSyD971ixQUVYZxTtjAkl7U8bC-ZbsZgCUX4",
+            authDomain: "brothers-studio-attendance.firebaseapp.com",
+            databaseURL: "https://brothers-studio-attendance-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "brothers-studio-attendance",
+            storageBucket: "brothers-studio-attendance.firebasestorage.app",
+            messagingSenderId: "149223396857",
+            appId: "1:149223396857:web:2d8629ef8f76581e35d928"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(_FC);
+        const db = firebase.database();
 
-/* ═══════════════════════════════════════════════════════
-   المظهر
-═══════════════════════════════════════════════════════ */
-function toggleTheme() {
-    const html = document.documentElement;
-    const isLight = html.getAttribute('data-theme') === 'light';
-    if (isLight) {
-        html.removeAttribute('data-theme');
-        document.getElementById('themeIcon').className    = 'fa-solid fa-moon';
-        document.getElementById('dashThemeIcon').className = 'fa-solid fa-moon';
-        localStorage.setItem('theme', 'dark');
-    } else {
-        html.setAttribute('data-theme', 'light');
-        document.getElementById('themeIcon').className    = 'fa-solid fa-sun';
-        document.getElementById('dashThemeIcon').className = 'fa-solid fa-sun';
-        localStorage.setItem('theme', 'light');
-    }
-}
-if (localStorage.getItem('theme') === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    document.getElementById('themeIcon').className    = 'fa-solid fa-sun';
-    document.getElementById('dashThemeIcon').className = 'fa-solid fa-sun';
-}
+        /* ═══════════════════════════════════════════════════════
+                   STATE
+                   ═══════════════════════════════════════════════════════ */
+        let currentStudent = null;
+        let studentFid = null;
+        let rawStudentName = "";
+        let isLoggingIn = false;
 
-/* ═══════════════════════════════════════════════════════
-   الموسيقى
-═══════════════════════════════════════════════════════ */
-const music     = document.getElementById('bgMusic');
-const musicBtn  = document.getElementById('musicBtn');
-const musicIcon = document.getElementById('musicIcon');
-let   isPlaying = false;
+        /* ═══════════════════════════════════════════════════════
+                   MUSIC
+                   ═══════════════════════════════════════════════════════ */
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
 
-document.addEventListener("DOMContentLoaded", () => {
-    music.volume = 0.35;
-    const tryPlay = () => {
-        music.play().then(() => {
-            isPlaying = true;
-            musicBtn.classList.add('playing');
-            musicIcon.className = 'fa-solid fa-music';
-        }).catch(() => {});
-    };
-    tryPlay();
-    const onInteract = () => {
-        tryPlay();
-        document.removeEventListener('click', onInteract);
-        document.removeEventListener('touchstart', onInteract);
-        document.removeEventListener('scroll', onInteract);
-    };
-    document.addEventListener('click', onInteract, { passive: true });
-    document.addEventListener('touchstart', onInteract, { passive: true });
-    document.addEventListener('scroll', onInteract, { passive: true });
-
-    // حركات الصفحة الرئيسية
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.to("#heroEyebrow", { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 0.2 });
-    gsap.from("#heroEyebrow", { y: 20, duration: 0.9, ease: "power3.out", delay: 0.2 });
-
-    gsap.to("#heroHeadline", { opacity: 1, duration: 1, ease: "power3.out", delay: 0.45 });
-    gsap.from("#heroHeadline", { y: 30, duration: 1, ease: "power3.out", delay: 0.45 });
-
-    gsap.to("#heroDesc", { opacity: 1, duration: 0.9, ease: "power3.out", delay: 0.7 });
-    gsap.from("#heroDesc", { y: 25, duration: 0.9, ease: "power3.out", delay: 0.7 });
-
-    gsap.to("#heroCta", { opacity: 1, duration: 0.9, ease: "back.out(1.4)", delay: 0.95 });
-    gsap.from("#heroCta", { y: 20, duration: 0.9, ease: "back.out(1.4)", delay: 0.95 });
-
-    gsap.to("#heroCard", { opacity: 1, duration: 1, ease: "power3.out", delay: 0.6 });
-    gsap.from("#heroCard", { x: -40, duration: 1, ease: "power3.out", delay: 0.6 });
-
-    // حركة بطاقات المميزات
-    gsap.utils.toArray('.feature-card').forEach((card, i) => {
-        gsap.to(card, {
-            opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-            scrollTrigger: { trigger: card, start: "top 88%" },
-            delay: i * 0.1
-        });
-    });
-
-    // حركة الاعتمادات
-    gsap.to("#credit1", { opacity: 1, x: 0, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: "#credit1", start: "top 90%" } });
-    gsap.from("#credit1", { x: 30, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: "#credit1", start: "top 90%" } });
-
-    gsap.to("#credit2", { opacity: 1, x: 0, duration: 0.8, ease: "power3.out", delay: 0.2,
-        scrollTrigger: { trigger: "#credit2", start: "top 90%" } });
-    gsap.from("#credit2", { x: -30, duration: 0.8, ease: "power3.out", delay: 0.2,
-        scrollTrigger: { trigger: "#credit2", start: "top 90%" } });
-});
-
-function toggleMusic() {
-    if (isPlaying && !music.paused) {
-        music.pause();
-        isPlaying = false;
-        musicBtn.classList.remove('playing');
-        musicBtn.classList.add('muted');
-        musicIcon.className = 'fa-solid fa-volume-xmark';
-    } else {
-        music.play();
-        isPlaying = true;
-        musicBtn.classList.add('playing');
-        musicBtn.classList.remove('muted');
-        musicIcon.className = 'fa-solid fa-music';
-    }
-}
-
-/* ═══════════════════════════════════════════════════════
-   التنقل بين الصفحات
-═══════════════════════════════════════════════════════ */
-function showLoginPage() {
-    gsap.to("#landing-page", {
-        opacity: 0, scale: 0.97, duration: 0.5, ease: "power3.in",
-        onComplete: () => {
-            document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('login-page').style.display  = 'flex';
-            gsap.from("#loginCard", { y: 50, opacity: 0, scale: 0.96, duration: 0.7, ease: "power3.out" });
-        }
-    });
-}
-
-function backToLanding() {
-    gsap.to("#loginCard", {
-        y: 40, opacity: 0, duration: 0.4, ease: "power3.in",
-        onComplete: () => {
-            document.getElementById('login-page').style.display  = 'none';
-            document.getElementById('landing-page').style.display = 'flex';
-            document.getElementById('landing-page').style.flexDirection = 'column';
-            gsap.from("#landing-page", { opacity: 0, scale: 0.98, duration: 0.6, ease: "power3.out" });
-        }
-    });
-}
-
-function scrollToFeatures() {
-    document.getElementById('featuresSection').scrollIntoView({ behavior: 'smooth' });
-}
-
-function showDashboard() {
-    gsap.to("#login-page", {
-        opacity: 0, y: -30, duration: 0.5,
-        onComplete: () => {
-            document.getElementById('login-page').style.display    = 'none';
-            document.getElementById('dashboard-page').style.display = 'block';
-            gsap.from(".dash-nav, .welcome-banner, .stat-card, .data-card, .export-area", {
-                y: 35, opacity: 0, duration: 0.75, stagger: 0.12, ease: "power3.out"
-            });
-        }
-    });
-}
-
-function logout() {
-    document.getElementById('studentPhone').value = '';
-    document.getElementById('parentPhone').value  = '';
-    currentStudent = null;
-    studentFid = null;
-    rawStudentName = "";
-    gsap.to("#dashboard-page", {
-        opacity: 0, y: 20, duration: 0.4,
-        onComplete: () => {
-            document.getElementById('dashboard-page').style.display  = 'none';
-            document.getElementById('landing-page').style.display    = 'flex';
-            document.getElementById('landing-page').style.flexDirection = 'column';
-            gsap.to("#landing-page", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" });
-        }
-    });
-}
-
-/* ═══════════════════════════════════════════════════════
-   تسجيل الدخول
-═══════════════════════════════════════════════════════ */
-function getSmartWelcome(name) {
-    if (!name) return 'ولي أمر الطالب الكريم';
-    const first = name.trim().split(' ')[0];
-    const femNames = ['مريم','زينب','سعاد','هند','نور','شهد','ملك','ياسمين','ريم','فرح','حنين','رؤى','سما','فاطمة','عائشة','أمينة','ميار','حبيبة','جنا','جنى'];
-    const isFem = first.endsWith('ة') || first.endsWith('اء') || first.endsWith('ى') || femNames.includes(first);
-    const title = isFem ? 'ولي أمر ابنتنا المتميزة' : 'ولي أمر ابننا المتميز';
-    return `${title}<br><span class="n-color">${name} 🌟</span>`;
-}
-
-async function attemptLogin() {
-    const stPhone  = document.getElementById('studentPhone').value.trim();
-    const paPhone  = document.getElementById('parentPhone').value.trim();
-    const errorEl  = document.getElementById('error-msg');
-    const loginBtn = document.getElementById('loginBtn');
-
-    if (!stPhone || !paPhone) {
-        errorEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> يُرجى إدخال رقم هاتف الطالب ورقم ولي الأمر للمتابعة.';
-        errorEl.style.display = 'block';
-        return;
-    }
-
-    errorEl.style.display = 'none';
-    loginBtn.disabled = true;
-    loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>جاري مطابقة البيانات...</span>';
-
-    try {
-        const snap = await db.ref('students_directory').once('value');
-        const students = snap.val() || {};
-        let matchedFid = null, matchedSt = null;
-
-        for (const [fid, st] of Object.entries(students)) {
-            if (st.student_phone === stPhone && st.parent_phone === paPhone) {
-                matchedFid = fid;
-                matchedSt  = st;
-                break;
+        function toggleMusic() {
+            if (isPlaying && !music.paused) {
+                music.pause();
+                isPlaying = false;
+                musicBtn.classList.remove('playing');
+                musicBtn.classList.add('muted');
+                musicIcon.className = 'fa-solid fa-volume-xmark';
+            } else {
+                music.play().catch(() => {});
+                isPlaying = true;
+                musicBtn.classList.add('playing');
+                musicBtn.classList.remove('muted');
+                musicIcon.className = 'fa-solid fa-music';
             }
         }
 
-        if (matchedSt) {
-            studentFid     = matchedFid;
-            currentStudent = matchedSt;
-            rawStudentName = matchedSt.name || 'الطالب';
-            showDashboard();
-            await fetchStudentData();
-        } else {
-            errorEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> تعذّر العثور على البيانات المُدخلة. يُرجى التحقق من الأرقام أو التواصل مع إدارة الأكاديمية.';
-            errorEl.style.display = 'block';
+        /* ═══════════════════════════════════════════════════════
+                   BACK TO TOP
+                   ═══════════════════════════════════════════════════════ */
+        const backTopBtn = document.getElementById('backTopBtn');
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    } catch (err) {
-        errorEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> حدث خطأ في الاتصال بالخادم، يُرجى المحاولة مجدداً.';
-        errorEl.style.display = 'block';
-    } finally {
-        loginBtn.disabled = false;
-        loginBtn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> <span>الدخول إلى السجل الأكاديمي</span>';
-    }
-}
 
-/* ═══════════════════════════════════════════════════════
-   جلب بيانات الطالب
-═══════════════════════════════════════════════════════ */
-async function fetchStudentData() {
-    if (!currentStudent) return;
-    const uid     = currentStudent.uid;
-    const groupId = currentStudent.group_reference; // نبقى نجلبها من قاعدة البيانات في حال احتجناها للحضور ولكن لا نعرضها في الواجهة
-
-    document.getElementById('dbWelcomeTitle').innerHTML = getSmartWelcome(rawStudentName);
-    document.getElementById('dbBalance').textContent    = currentStudent.wallet_balance || 0;
-
-    document.getElementById('studentNameDisplay').textContent  = rawStudentName || '—';
-    document.getElementById('studentUID').textContent          = uid || '—';
-    document.getElementById('studentBalanceDisplay').textContent = currentStudent.wallet_balance || 0; // عرض الرصيد بجانب الكود أيضاً
-
-    const femNames = ['مريم','زينب','سعاد','هند','نور','شهد','ملك','ياسمين','ريم','فرح','حنين','رؤى','سما','فاطمة','عائشة','أمينة','ميار','حبيبة','جنا','جنى'];
-    const first = rawStudentName.trim().split(' ')[0];
-    const isFem = first.endsWith('ة') || first.endsWith('اء') || first.endsWith('ى') || femNames.includes(first);
-    const avatarEl = document.getElementById('studentAvatarIcon');
-    if (avatarEl) avatarEl.innerHTML = isFem
-        ? '<i class="fa-solid fa-user-graduate" style="font-size:24px"></i>'
-        : '<i class="fa-solid fa-user-tie" style="font-size:24px"></i>';
-
-    /* الحضور */
-    const sessSnap   = await db.ref('attendance_sessions').once('value');
-    const allSessions = sessSnap.val() || {};
-    const mySessions  = Object.values(allSessions)
-        .filter(s => s.groupId === groupId)
-        .sort((a, b) => (b.startTime || 0) - (a.startTime || 0));
-
-    const attBody = document.getElementById('attendanceTableBody');
-    attBody.innerHTML = '';
-    let attended = 0;
-
-    if (!mySessions.length) {
-        attBody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--text-secondary)">لم يتم تسجيل محاضرات بعد.</td></tr>';
-    } else {
-        mySessions.forEach(s => {
-            const present = s.attended && s.attended[studentFid];
-            if (present) attended++;
-            const date  = s.startTime ? new Date(s.startTime).toLocaleDateString('ar-EG', {day:'numeric',month:'short',year:'numeric'}) : '—';
-            const name  = s.session_number ? `المحاضرة رقم #${s.session_number}` : (s.groupTitle || 'جلسة دراسية');
-            const cls   = present ? 'badge-success' : 'badge-danger';
-            const label = present ? '<i class="fa-solid fa-check-circle"></i> حاضر' : '<i class="fa-solid fa-circle-xmark"></i> غائب';
-            attBody.innerHTML += `<tr>
-                <td><div style="font-weight:800">${name}</div><div style="color:var(--text-secondary);font-size:13px;margin-top:4px"><i class="fa-regular fa-calendar-days"></i> ${date}</div></td>
-                <td><span class="badge ${cls}">${label}</span></td>
-            </tr>`;
-        });
-    }
-    const attRate = mySessions.length ? Math.round((attended / mySessions.length) * 100) : 0;
-    document.getElementById('dbAttRate').textContent = attRate + '%';
-
-    /* الاختبارات */
-    const exSnap = await db.ref('exam_scores').once('value');
-    const allEx  = exSnap.val() || {};
-    const myEx   = Object.values(allEx)
-        .filter(e => e.student_uid === uid)
-        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-    const exBody = document.getElementById('examsTableBody');
-    exBody.innerHTML = '';
-    let examSum = 0;
-
-    if (!myEx.length) {
-        exBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-secondary)">لا توجد اختبارات مرصودة حتى الآن.</td></tr>';
-    } else {
-        myEx.forEach(ex => {
-            const pct = ex.pct || 0;
-            examSum += pct;
-            let evalCls = 'badge-success', evalTxt = ex.grade_label || 'أداء ممتاز';
-            if (pct < 55)      { evalCls = 'badge-danger';  evalTxt = 'يحتاج متابعة فورية'; }
-            else if (pct < 78) { evalCls = 'badge-warning'; evalTxt = 'جيد ويمكن التحسين'; }
-            exBody.innerHTML += `<tr>
-                <td><div style="font-weight:800">${ex.exam_title || 'تقييم دوري'}</div><div style="font-size:13px;color:var(--text-secondary);margin-top:4px">${ex.date || ''}</div></td>
-                <td style="color:var(--red-primary);font-size:18px;font-weight:900">${ex.score || 0}</td>
-                <td style="color:var(--text-secondary)">${ex.max_score || 0}</td>
-                <td style="font-weight:900;color:var(--red-primary)">${pct}%</td>
-                <td><span class="badge ${evalCls}">${evalTxt}</span></td>
-            </tr>`;
-        });
-    }
-    const examAvg = myEx.length ? Math.round(examSum / myEx.length) : 0;
-    document.getElementById('dbExamAvg').textContent = examAvg + '%';
-
-    /* الواجبات */
-    const hwSnap = await db.ref('homework_records').once('value');
-    const allHw  = hwSnap.val() || {};
-    const myHw   = Object.values(allHw)
-        .filter(h => h.student_uid === uid)
-        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-    const hwBody = document.getElementById('hwTableBody');
-    hwBody.innerHTML = '';
-
-    if (!myHw.length) {
-        hwBody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--text-secondary)">لم يتم رصد واجبات دراسية بعد.</td></tr>';
-    } else {
-        myHw.forEach(hw => {
-            const done  = hw.done;
-            const cls   = done ? 'badge-success' : 'badge-danger';
-            const label = done
-                ? '<i class="fa-solid fa-check-double"></i> تم التسليم بنجاح'
-                : '<i class="fa-solid fa-triangle-exclamation"></i> لم يُسلَّم في الموعد';
-            const name  = hw.session_number ? `الواجب التابع للمحاضرة #${hw.session_number}` : 'مهمة دراسية دورية';
-            hwBody.innerHTML += `<tr>
-                <td><div style="font-weight:800">${name}</div><div style="color:var(--text-secondary);font-size:13px;margin-top:4px">تاريخ التكليف: ${hw.date || '—'}</div></td>
-                <td><span class="badge ${cls}">${label}</span></td>
-            </tr>`;
-        });
-    }
-}
-
-/* ═══════════════════════════════════════════════════════
-   تصدير التقرير PNG بحجم يوتيوب (1280x720) - محسنة
-═══════════════════════════════════════════════════════ */
-async function downloadPNGReport() {
-    const btn = document.querySelector('.btn-export');
-    const origHTML = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>جاري إنشاء التقرير...</span>';
-    btn.disabled = true;
-
-    try {
-        // 1. الحصول على محتوى التقرير
-        const sourceArea = document.getElementById('printable-area');
-        const targetContainer = document.getElementById('report-print-container');
-
-        // 2. نسخ المحتوى إلى حاوية الطباعة
-        targetContainer.innerHTML = sourceArea.innerHTML;
-
-        // 3. تطبيق التنسيق الخاص بالطباعة (المضمن في CSS)
-        // بما أن الـ container له حجم ثابت 1280x720، فإن التقرير سيظهر بشكل مثالي
-
-        // 4. إضافة بعض التعديلات السريعة للجداول في التقرير لكي تظهر بشكل أفضل في حجم 1280x720
-        const tables = targetContainer.querySelectorAll('table');
-        tables.forEach(table => {
-            table.style.fontSize = '11px';
-            table.style.width = '100%';
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backTopBtn.classList.add('visible');
+            } else {
+                backTopBtn.classList.remove('visible');
+            }
         });
 
-        // 5. التقاط الصورة باستخدام html2canvas
-        const canvas = await html2canvas(targetContainer, {
-            scale: 1.5, // دقة عالية جداً
-            useCORS: true,
-            logging: false,
-            backgroundColor: '#0a0a0a',
-            width: 1280,
-            height: 720,
-            allowTaint: false,
+        /* ═══════════════════════════════════════════════════════
+                   LOADING OVERLAY
+                   ═══════════════════════════════════════════════════════ */
+        const overlay = document.getElementById('loading-overlay');
+        const loadingText = document.getElementById('loadingText');
+
+        function showLoading(msg) {
+            loadingText.textContent = msg || 'جاري التحميل...';
+            overlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            overlay.style.display = 'none';
+        }
+
+        /* ═══════════════════════════════════════════════════════
+                   GSAP + SCROLLTRIGGER — LANDING ANIMATIONS
+                   ═══════════════════════════════════════════════════════ */
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Music auto-play attempt
+            music.volume = 0.35;
+            const tryPlay = () => {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                    musicIcon.className = 'fa-solid fa-music';
+                }).catch(() => {});
+            };
+            tryPlay();
+            const onInteract = () => {
+                tryPlay();
+                document.removeEventListener('click', onInteract);
+                document.removeEventListener('touchstart', onInteract);
+                document.removeEventListener('scroll', onInteract);
+            };
+            document.addEventListener('click', onInteract, { passive: true });
+            document.addEventListener('touchstart', onInteract, { passive: true });
+            document.addEventListener('scroll', onInteract, { passive: true });
+
+            // ——— Hero ———
+            gsap.to("#heroLogo", { opacity: 1, scale: 1, duration: 0.9, ease: "back.out(1.6)", delay: 0.1 });
+            gsap.from("#heroLogo", { scale: 0.5, duration: 0.9, ease: "back.out(1.6)", delay: 0.1 });
+
+            gsap.to("#heroEyebrow", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.3 });
+            gsap.from("#heroEyebrow", { y: 20, duration: 0.8, ease: "power3.out", delay: 0.3 });
+
+            gsap.to("#heroHeadline", { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 0.5 });
+            gsap.from("#heroHeadline", { y: 30, duration: 0.9, ease: "power3.out", delay: 0.5 });
+
+            gsap.to("#heroDesc", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.7 });
+            gsap.from("#heroDesc", { y: 25, duration: 0.8, ease: "power3.out", delay: 0.7 });
+
+            gsap.to("#heroCta", { opacity: 1, y: 0, duration: 0.9, ease: "back.out(1.4)", delay: 0.9 });
+            gsap.from("#heroCta", { y: 20, duration: 0.9, ease: "back.out(1.4)", delay: 0.9 });
+
+            // ——— Features ———
+            gsap.to("#featEyebrow", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
+                scrollTrigger: { trigger: "#featEyebrow", start: "top 88%" } });
+            gsap.from("#featEyebrow", { y: 20, duration: 0.7, ease: "power3.out",
+                scrollTrigger: { trigger: "#featEyebrow", start: "top 88%" } });
+
+            gsap.to("#featHeadline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", delay: 0.1,
+                scrollTrigger: { trigger: "#featHeadline", start: "top 85%" } });
+            gsap.from("#featHeadline", { y: 25, duration: 0.7, ease: "power3.out", delay: 0.1,
+                scrollTrigger: { trigger: "#featHeadline", start: "top 85%" } });
+
+            gsap.to("#featSub", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", delay: 0.2,
+                scrollTrigger: { trigger: "#featSub", start: "top 85%" } });
+            gsap.from("#featSub", { y: 20, duration: 0.7, ease: "power3.out", delay: 0.2,
+                scrollTrigger: { trigger: "#featSub", start: "top 85%" } });
+
+            gsap.utils.toArray('.feature-card').forEach((card, i) => {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.7,
+                    ease: "power3.out",
+                    delay: i * 0.08,
+                    scrollTrigger: { trigger: card, start: "top 88%" }
+                });
+                gsap.from(card, { y: 30, scale: 0.96, duration: 0.7, ease: "power3.out", delay: i * 0.08,
+                    scrollTrigger: { trigger: card, start: "top 88%" } });
+            });
+
+            // ——— Credits ———
+            gsap.to("#credit1", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+                scrollTrigger: { trigger: "#credit1", start: "top 92%" } });
+            gsap.from("#credit1", { y: 25, duration: 0.8, ease: "power3.out",
+                scrollTrigger: { trigger: "#credit1", start: "top 92%" } });
+
+            gsap.to("#credit2", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.15,
+                scrollTrigger: { trigger: "#credit2", start: "top 92%" } });
+            gsap.from("#credit2", { y: 25, duration: 0.8, ease: "power3.out", delay: 0.15,
+                scrollTrigger: { trigger: "#credit2", start: "top 92%" } });
         });
 
-        // 6. تنظيف حاوية الطباعة
-        targetContainer.innerHTML = '';
+        /* ═══════════════════════════════════════════════════════
+                   NAVIGATION
+                   ═══════════════════════════════════════════════════════ */
+        function showLoginPage() {
+            gsap.to("#landing-page", {
+                opacity: 0,
+                scale: 0.96,
+                duration: 0.45,
+                ease: "power3.in",
+                onComplete: () => {
+                    document.getElementById('landing-page').style.display = 'none';
+                    document.getElementById('login-page').style.display = 'flex';
+                    gsap.to("#loginCard", {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        duration: 0.7,
+                        ease: "power3.out",
+                        delay: 0.05
+                    });
+                    gsap.from("#loginCard", { scale: 0.92, y: 40, duration: 0.7, ease: "power3.out",
+                        delay: 0.05 });
+                }
+            });
+        }
 
-        // 7. تحميل الصورة
-        const link = document.createElement('a');
-        const fname = `التقرير_الأكاديمي_${rawStudentName.replace(/\s+/g, '_')}_${new Date().toLocaleDateString('ar-EG').replace(/\//g,'-')}.png`;
-        link.download = fname;
-        link.href = canvas.toDataURL('image/png', 1.0);
-        link.click();
+        function backToLanding() {
+            gsap.to("#loginCard", {
+                opacity: 0,
+                y: 30,
+                scale: 0.95,
+                duration: 0.4,
+                ease: "power3.in",
+                onComplete: () => {
+                    document.getElementById('login-page').style.display = 'none';
+                    document.getElementById('landing-page').style.display = 'flex';
+                    document.getElementById('landing-page').style.flexDirection = 'column';
+                    gsap.from("#landing-page", { opacity: 0, scale: 0.98, duration: 0.5, ease: "power3.out" });
+                    gsap.to("#landing-page", { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" });
+                }
+            });
+        }
 
-    } catch (err) {
-        console.error(err);
-        alert('حدث خطأ أثناء إنشاء الصورة، يُرجى المحاولة مجدداً.');
-    } finally {
-        btn.innerHTML = origHTML;
-        btn.disabled = false;
-    }
-}
-</script>
+        function scrollToFeatures() {
+            document.getElementById('featuresSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showDashboard() {
+            gsap.to("#login-page", {
+                opacity: 0,
+                y: -20,
+                scale: 0.97,
+                blur: 4,
+                duration: 0.5,
+                ease: "power3.in",
+                onComplete: () => {
+                    document.getElementById('login-page').style.display = 'none';
+                    document.getElementById('dashboard-page').style.display = 'block';
+                    // Animate dashboard elements
+                    const els = [
+                        '#dashHeader', '#welcomeCard', '#profileCard',
+                        '#stat1', '#stat2', '#stat3',
+                        '#attCard', '#examCard', '#hwCard', '#dashCredits', '#exportArea'
+                    ];
+                    gsap.fromTo(els, {
+                        y: 30,
+                        opacity: 0
+                    }, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.6,
+                        stagger: 0.08,
+                        ease: "power3.out",
+                        delay: 0.1
+                    });
+                    gsap.fromTo("#dashHeader", { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5,
+                        ease: "power3.out", delay: 0.05 });
+                }
+            });
+        }
+
+        function logout() {
+            document.getElementById('studentPhone').value = '';
+            document.getElementById('parentPhone').value = '';
+            currentStudent = null;
+            studentFid = null;
+            rawStudentName = '';
+
+            gsap.to("#dashboard-page", {
+                opacity: 0,
+                y: 20,
+                scale: 0.97,
+                duration: 0.4,
+                ease: "power3.in",
+                onComplete: () => {
+                    document.getElementById('dashboard-page').style.display = 'none';
+                    document.getElementById('landing-page').style.display = 'flex';
+                    document.getElementById('landing-page').style.flexDirection = 'column';
+                    gsap.from("#landing-page", { opacity: 0, scale: 0.98, duration: 0.5, ease: "power3.out" });
+                    gsap.to("#landing-page", { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" });
+                }
+            });
+        }
+
+        /* ═══════════════════════════════════════════════════════
+                   LOGIN LOGIC
+                   ═══════════════════════════════════════════════════════ */
+        function getSmartWelcome(name) {
+            if (!name) return 'ولي أمر الطالب الكريم';
+            const first = name.trim().split(' ')[0];
+            const femNames = ['مريم', 'زينب', 'سعاد', 'هند', 'نور', 'شهد', 'ملك', 'ياسمين', 'ريم', 'فرح',
+                'حنين', 'رؤى', 'سما', 'فاطمة', 'عائشة', 'أمينة', 'ميار', 'حبيبة', 'جنا', 'جنى'
+            ];
+            const isFem = first.endsWith('ة') || first.endsWith('اء') || first.endsWith('ى') || femNames.includes(first);
+            const title = isFem ? 'ولي أمر ابنتنا المتميزة' : 'ولي أمر ابننا المتميز';
+            return `${title}<br /><span class="n-color">${name} 🌟</span>`;
+        }
+
+        async function attemptLogin() {
+            if (isLoggingIn) return;
+            const stPhone = document.getElementById('studentPhone').value.trim();
+            const paPhone = document.getElementById('parentPhone').value.trim();
+            const errorEl = document.getElementById('error-msg');
+            const loginBtn = document.getElementById('loginBtn');
+            const phoneGroup = document.getElementById('phoneGroup');
+            const parentGroup = document.getElementById('parentGroup');
+
+            // Reset error states
+            errorEl.style.display = 'none';
+            phoneGroup.classList.remove('error');
+            parentGroup.classList.remove('error');
+
+            if (!stPhone || !paPhone) {
+                errorEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> يُرجى إدخال رقم هاتف الطالب ورقم ولي الأمر للمتابعة.';
+                errorEl.style.display = 'block';
+                if (!stPhone) phoneGroup.classList.add('error');
+                if (!paPhone) parentGroup.classList.add('error');
+                return;
+            }
+
+            isLoggingIn = true;
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>جاري التحقق...</span>';
+            showLoading('جاري البحث عن البيانات...');
+
+            try {
+                const snap = await db.ref('students_directory').once('value');
+                const students = snap.val() || {};
+                let matchedFid = null,
+                    matchedSt = null;
+
+                for (const [fid, st] of Object.entries(students)) {
+                    if (st.student_phone === stPhone && st.parent_phone === paPhone) {
+                        matchedFid = fid;
+                        matchedSt = st;
+                        break;
+                    }
+                }
+
+                if (matchedSt) {
+                    studentFid = matchedFid;
+                    currentStudent = matchedSt;
+                    rawStudentName = matchedSt.name || 'الطالب';
+                    hideLoading();
+                    showDashboard();
+                    await fetchStudentData();
+                } else {
+                    hideLoading();
+                    errorEl.innerHTML =
+                        '<i class="fa-solid fa-triangle-exclamation"></i> تعذّر العثور على البيانات المُدخلة. يُرجى التحقق من الأرقام أو التواصل مع إدارة الأكاديمية.';
+                    errorEl.style.display = 'block';
+                    phoneGroup.classList.add('error');
+                    parentGroup.classList.add('error');
+                }
+            } catch (err) {
+                hideLoading();
+                errorEl.innerHTML =
+                    '<i class="fa-solid fa-triangle-exclamation"></i> حدث خطأ في الاتصال بالخادم، يُرجى المحاولة مجدداً.';
+                errorEl.style.display = 'block';
+                console.error(err);
+            } finally {
+                isLoggingIn = false;
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> <span>الدخول إلى السجل الأكاديمي</span>';
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+                   FETCH STUDENT DATA
+                   ═══════════════════════════════════════════════════════ */
+        async function fetchStudentData() {
+            if (!currentStudent) return;
+            const uid = currentStudent.uid;
+            const groupId = currentStudent.group_reference;
+
+            document.getElementById('dbWelcomeTitle').innerHTML = getSmartWelcome(rawStudentName);
+            document.getElementById('dbBalance').textContent = currentStudent.wallet_balance || 0;
+
+            document.getElementById('studentNameDisplay').textContent = rawStudentName || '—';
+            document.getElementById('studentUID').textContent = uid || '—';
+            document.getElementById('studentBalanceDisplay').textContent = currentStudent.wallet_balance || 0;
+
+            const femNames = ['مريم', 'زينب', 'سعاد', 'هند', 'نور', 'شهد', 'ملك', 'ياسمين', 'ريم', 'فرح',
+                'حنين', 'رؤى', 'سما', 'فاطمة', 'عائشة', 'أمينة', 'ميار', 'حبيبة', 'جنا', 'جنى'
+            ];
+            const first = rawStudentName.trim().split(' ')[0];
+            const isFem = first.endsWith('ة') || first.endsWith('اء') || first.endsWith('ى') || femNames.includes(first);
+            const avatarEl = document.getElementById('studentAvatarIcon');
+            if (avatarEl) {
+                avatarEl.innerHTML = isFem ?
+                    '<i class="fa-solid fa-user-graduate" style="font-size:24px"></i>' :
+                    '<i class="fa-solid fa-user-tie" style="font-size:24px"></i>';
+            }
+
+            // ——— Attendance ———
+            const sessSnap = await db.ref('attendance_sessions').once('value');
+            const allSessions = sessSnap.val() || {};
+            const mySessions = Object.values(allSessions)
+                .filter(s => s.groupId === groupId)
+                .sort((a, b) => (b.startTime || 0) - (a.startTime || 0));
+
+            const attBody = document.getElementById('attendanceTableBody');
+            attBody.innerHTML = '';
+            let attended = 0;
+
+            if (!mySessions.length) {
+                attBody.innerHTML =
+                    '<tr><td colspan="2" style="text-align:center;color:var(--text-secondary);padding:16px 0;">لم يتم تسجيل محاضرات بعد.</td></tr>';
+            } else {
+                mySessions.forEach(s => {
+                    const present = s.attended && s.attended[studentFid];
+                    if (present) attended++;
+                    const date = s.startTime ? new Date(s.startTime).toLocaleDateString('ar-EG', { day: 'numeric',
+                        month: 'short', year: 'numeric' }) : '—';
+                    const name = s.session_number ? `المحاضرة #${s.session_number}` : (s.groupTitle || 'جلسة');
+                    const cls = present ? 'badge-success' : 'badge-danger';
+                    const label = present ?
+                        '<i class="fa-solid fa-check-circle"></i> حاضر' :
+                        '<i class="fa-solid fa-circle-xmark"></i> غائب';
+                    attBody.innerHTML += `<tr>
+                                <td><div style="font-weight:800;font-size:14px;">${name}</div>
+                                    <div style="color:var(--text-secondary);font-size:12px;margin-top:2px;">
+                                        <i class="fa-regular fa-calendar-days"></i> ${date}
+                                    </div>
+                                </td>
+                                <td><span class="badge ${cls}">${label}</span></td>
+                            </tr>`;
+                });
+            }
+            const attRate = mySessions.length ? Math.round((attended / mySessions.length) * 100) : 0;
+            document.getElementById('dbAttRate').textContent = attRate + '%';
+
+            // ——— Exams ———
+            const exSnap = await db.ref('exam_scores').once('value');
+            const allEx = exSnap.val() || {};
+            const myEx = Object.values(allEx)
+                .filter(e => e.student_uid === uid)
+                .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            const exBody = document.getElementById('examsTableBody');
+            exBody.innerHTML = '';
+            let examSum = 0;
+
+            if (!myEx.length) {
+                exBody.innerHTML =
+                    '<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);padding:16px 0;">لا توجد اختبارات مرصودة حتى الآن.</td></tr>';
+            } else {
+                myEx.forEach(ex => {
+                    const pct = ex.pct || 0;
+                    examSum += pct;
+                    let evalCls = 'badge-success',
+                        evalTxt = ex.grade_label || 'أداء ممتاز';
+                    if (pct < 55) { evalCls = 'badge-danger';
+                        evalTxt = 'يحتاج متابعة'; } else if (pct < 78) { evalCls = 'badge-warning';
+                        evalTxt = 'جيد ويمكن التحسين'; }
+                    exBody.innerHTML += `<tr>
+                                <td><div style="font-weight:800;font-size:14px;">${ex.exam_title || 'تقييم دوري'}</div>
+                                    <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">${ex.date || ''}</div>
+                                </td>
+                                <td style="color:var(--red-primary);font-size:17px;font-weight:900">${ex.score || 0}</td>
+                                <td style="color:var(--text-secondary)">${ex.max_score || 0}</td>
+                                <td style="font-weight:900;color:var(--red-primary)">${pct}%</td>
+                                <td><span class="badge ${evalCls}">${evalTxt}</span></td>
+                            </tr>`;
+                });
+            }
+            const examAvg = myEx.length ? Math.round(examSum / myEx.length) : 0;
+            document.getElementById('dbExamAvg').textContent = examAvg + '%';
+
+            // ——— Homework ———
+            const hwSnap = await db.ref('homework_records').once('value');
+            const allHw = hwSnap.val() || {};
+            const myHw = Object.values(allHw)
+                .filter(h => h.student_uid === uid)
+                .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            const hwBody = document.getElementById('hwTableBody');
+            hwBody.innerHTML = '';
+
+            if (!myHw.length) {
+                hwBody.innerHTML =
+                    '<tr><td colspan="2" style="text-align:center;color:var(--text-secondary);padding:16px 0;">لم يتم رصد واجبات دراسية بعد.</td></tr>';
+            } else {
+                myHw.forEach(hw => {
+                    const done = hw.done;
+                    const cls = done ? 'badge-success' : 'badge-danger';
+                    const label = done ?
+                        '<i class="fa-solid fa-check-double"></i> تم التسليم' :
+                        '<i class="fa-solid fa-triangle-exclamation"></i> لم يُسلَّم';
+                    const name = hw.session_number ? `الواجب التابع للمحاضرة #${hw.session_number}` :
+                        'مهمة دراسية';
+                    hwBody.innerHTML += `<tr>
+                                <td><div style="font-weight:800;font-size:14px;">${name}</div>
+                                    <div style="color:var(--text-secondary);font-size:12px;margin-top:2px;">
+                                        <i class="fa-regular fa-calendar"></i> ${hw.date || '—'}
+                                    </div>
+                                </td>
+                                <td><span class="badge ${cls}">${label}</span></td>
+                            </tr>`;
+                });
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+                   EXPORT PNG
+                   ═══════════════════════════════════════════════════════ */
+        async function downloadPNGReport() {
+            const btn = document.querySelector('.btn-export');
+            const origHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>جاري إنشاء التقرير...</span>';
+            btn.disabled = true;
+
+            try {
+                const sourceArea = document.getElementById('printable-area');
+                const targetContainer = document.getElementById('report-print-container');
+
+                // Clone content
+                targetContainer.innerHTML = sourceArea.innerHTML;
+
+                // Adjust tables
+                const tables = targetContainer.querySelectorAll('table');
+                tables.forEach(table => {
+                    table.style.fontSize = '11px';
+                    table.style.width = '100%';
+                });
+
+                // Capture
+                const canvas = await html2canvas(targetContainer, {
+                    scale: 1.5,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#0b0b0e',
+                    width: 1280,
+                    height: 720,
+                    allowTaint: false,
+                });
+
+                targetContainer.innerHTML = '';
+
+                const link = document.createElement('a');
+                const fname =
+                    `التقرير_الأكاديمي_${rawStudentName.replace(/\s+/g, '_')}_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.png`;
+                link.download = fname;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+
+            } catch (err) {
+                console.error(err);
+                alert('حدث خطأ أثناء إنشاء الصورة، يُرجى المحاولة مجدداً.');
+            } finally {
+                btn.innerHTML = origHTML;
+                btn.disabled = false;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+                   KEYBOARD SUPPORT — Enter key on login
+                   ═══════════════════════════════════════════════════════ */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.getElementById('login-page').style.display === 'flex') {
+                attemptLogin();
+            }
+        });
+
+        /* ═══════════════════════════════════════════════════════
+                   CLEAR ERROR ON INPUT
+                   ═══════════════════════════════════════════════════════ */
+        document.getElementById('studentPhone').addEventListener('input', () => {
+            document.getElementById('error-msg').style.display = 'none';
+            document.getElementById('phoneGroup').classList.remove('error');
+        });
+        document.getElementById('parentPhone').addEventListener('input', () => {
+            document.getElementById('error-msg').style.display = 'none';
+            document.getElementById('parentGroup').classList.remove('error');
+        });
+
+        /* ═══════════════════════════════════════════════════════
+                   PREVENT DOUBLE SUBMIT (already handled by isLoggingIn)
+                   ═══════════════════════════════════════════════════════ */
+        console.log('🚀 منصة أ. أمنية سعيد — تم التحميل بنجاح');
+    </script>
+
 </body>
 </html>
