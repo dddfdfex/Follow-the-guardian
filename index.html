@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة التفوق الأكاديمي | أ. أمنية سعيد</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -15,46 +15,52 @@
 
     <style>
     /* ═══════════════════════════════════════════════════════════════
-       نظام الألوان والمتغيرات العامة
+       نظام الألوان والمتغيرات العامة — نسخة سينمائية مميزة
     ═══════════════════════════════════════════════════════════════ */
     :root {
-        --bg-dark:        #070b14;
-        --bg-dark-2:      #0d1220;
-        --surface:        rgba(15, 22, 40, 0.75);
-        --surface-hover:  rgba(22, 33, 58, 0.9);
-        --border:         rgba(255,255,255,0.06);
-        --border-hi:      rgba(96, 165, 250, 0.25);
-        --text:           #f0f4ff;
-        --muted:          #7a8aaa;
-        --primary:        #4f8ef7;
-        --primary-2:      #2563eb;
-        --accent:         #818cf8;
-        --glow:           rgba(79,142,247,0.18);
+        --bg-dark:        #05080f;
+        --bg-dark-2:      #0a0f1e;
+        --surface:        rgba(12, 18, 38, 0.78);
+        --surface-hover:  rgba(18, 27, 55, 0.92);
+        --border:         rgba(255,255,255,0.055);
+        --border-hi:      rgba(168, 120, 255, 0.28);
+        --text:           #f0f0ff;
+        --muted:          #8898bb;
+        --primary:        #a878ff;
+        --primary-2:      #7c3aed;
+        --accent:         #f59e42;
+        --accent-2:       #ff6bcb;
+        --glow:           rgba(168,120,255,0.18);
+        --glow-gold:      rgba(245,158,66,0.15);
         --success:        #34d399;
         --danger:         #fb7185;
         --warning:        #fbbf24;
         --gold:           #f59e0b;
-        --radius:         20px;
-        --shadow:         0 24px 60px rgba(0,0,0,0.45);
+        --radius:         22px;
+        --shadow:         0 28px 70px rgba(0,0,0,0.55);
+        --font-display:   'Cairo', 'Tajawal', sans-serif;
+        --font-body:      'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
     }
     [data-theme="light"] {
-        --bg-dark:        #eef2f9;
-        --bg-dark-2:      #e2e8f4;
-        --surface:        rgba(255,255,255,0.9);
-        --surface-hover:  rgba(240,245,255,0.97);
-        --border:         rgba(0,0,0,0.07);
-        --border-hi:      rgba(37,99,235,0.2);
-        --text:           #1a2340;
-        --muted:          #5a6a88;
-        --primary:        #2563eb;
-        --primary-2:      #1d4ed8;
-        --accent:         #6366f1;
-        --glow:           rgba(37,99,235,0.1);
+        --bg-dark:        #f0eaff;
+        --bg-dark-2:      #e8deff;
+        --surface:        rgba(255,255,255,0.92);
+        --surface-hover:  rgba(248,244,255,0.97);
+        --border:         rgba(0,0,0,0.06);
+        --border-hi:      rgba(124,58,237,0.22);
+        --text:           #1a1040;
+        --muted:          #5a4a7a;
+        --primary:        #7c3aed;
+        --primary-2:      #5b21b6;
+        --accent:         #d97706;
+        --accent-2:       #be185d;
+        --glow:           rgba(124,58,237,0.1);
+        --glow-gold:      rgba(245,158,11,0.1);
         --success:        #059669;
         --danger:         #e11d48;
         --warning:        #d97706;
         --gold:           #b45309;
-        --shadow:         0 12px 40px rgba(0,0,0,0.08);
+        --shadow:         0 14px 45px rgba(0,0,0,0.1);
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -63,7 +69,7 @@
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
     body {
-        font-family: 'Tajawal', 'Cairo', sans-serif;
+        font-family: var(--font-body);
         background: var(--bg-dark);
         color: var(--text);
         overflow-x: hidden;
@@ -88,16 +94,17 @@
         inset: 0;
         z-index: 0;
         background:
-            radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,0.22) 0%, transparent 70%),
-            radial-gradient(ellipse 60% 50% at 90% 80%, rgba(99,102,241,0.15) 0%, transparent 60%),
-            radial-gradient(ellipse 50% 40% at 10% 80%, rgba(79,142,247,0.12) 0%, transparent 60%);
+            radial-gradient(ellipse 80% 60% at 50% -10%, rgba(168,120,255,0.28) 0%, transparent 65%),
+            radial-gradient(ellipse 60% 50% at 90% 85%, rgba(245,158,66,0.16) 0%, transparent 58%),
+            radial-gradient(ellipse 55% 45% at 5% 75%, rgba(255,107,203,0.12) 0%, transparent 58%),
+            radial-gradient(ellipse 40% 35% at 70% 20%, rgba(124,58,237,0.14) 0%, transparent 55%);
         background-color: var(--bg-dark);
         transition: background-color 0.5s ease;
     }
     [data-theme="light"] .landing-bg {
         background:
-            radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,0.10) 0%, transparent 70%),
-            radial-gradient(ellipse 60% 50% at 90% 80%, rgba(99,102,241,0.08) 0%, transparent 60%);
+            radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168,120,255,0.14) 0%, transparent 65%),
+            radial-gradient(ellipse 60% 50% at 90% 80%, rgba(245,158,66,0.1) 0%, transparent 58%);
         background-color: var(--bg-dark);
     }
 
@@ -159,20 +166,21 @@
         gap: 14px;
     }
     .nav-logo-img {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
         object-fit: contain;
         background: transparent;
-        filter: drop-shadow(0 4px 12px rgba(79,142,247,0.3));
+        filter: drop-shadow(0 4px 14px rgba(168,120,255,0.4));
         transition: transform 0.3s ease;
     }
     .nav-logo-img:hover { transform: scale(1.08) rotate(-3deg); }
     .nav-logo-name {
-        font-size: 20px;
-        font-weight: 800;
+        font-size: 22px;
+        font-weight: 900;
         color: var(--text);
         line-height: 1.2;
+        font-family: var(--font-display);
     }
     .nav-logo-sub {
         font-size: 13px;
@@ -220,21 +228,21 @@
         align-items: center;
         gap: 10px;
         padding: 13px 30px;
-        background: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
         color: #fff;
         border: none;
         border-radius: 14px;
         font-size: 16px;
         font-weight: 700;
-        font-family: 'Tajawal', sans-serif;
+        font-family: var(--font-body);
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-        box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+        box-shadow: 0 8px 24px rgba(168,120,255,0.35);
     }
     .landing-enter-btn:hover {
         transform: translateY(-3px) scale(1.03);
-        box-shadow: 0 14px 36px rgba(37,99,235,0.5);
-        background: var(--primary-2);
+        box-shadow: 0 14px 36px rgba(168,120,255,0.52);
+        background: linear-gradient(135deg, #be9aff, var(--primary));
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -274,12 +282,13 @@
     }
 
     .hero-headline {
-        font-size: clamp(36px, 5vw, 64px);
+        font-size: clamp(38px, 5.5vw, 68px);
         font-weight: 900;
         line-height: 1.25;
         margin-bottom: 26px;
         opacity: 0;
-        font-family: 'Cairo', sans-serif;
+        font-family: var(--font-display);
+        letter-spacing: -0.5px;
     }
     .hero-headline .word-accent {
         display: inline-block;
@@ -326,19 +335,19 @@
         display: inline-flex;
         align-items: center;
         gap: 12px;
-        padding: 18px 40px;
+        padding: 18px 44px;
         background: linear-gradient(135deg, var(--primary), var(--primary-2));
         color: #fff;
         border: none;
-        border-radius: 16px;
+        border-radius: 18px;
         font-size: 18px;
         font-weight: 800;
-        font-family: 'Tajawal', sans-serif;
+        font-family: var(--font-body);
         cursor: pointer;
         position: relative;
         overflow: hidden;
         transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
-        box-shadow: 0 10px 30px rgba(37,99,235,0.4);
+        box-shadow: 0 10px 32px rgba(168,120,255,0.42);
     }
     .cta-primary::before {
         content: '';
@@ -348,7 +357,7 @@
         opacity: 0;
         transition: opacity 0.4s ease;
     }
-    .cta-primary:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 18px 44px rgba(37,99,235,0.55); }
+    .cta-primary:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 18px 48px rgba(168,120,255,0.58); }
     .cta-primary:hover::before { opacity: 1; }
     .cta-primary span { position: relative; z-index: 1; }
     .cta-primary i { position: relative; z-index: 1; }
@@ -393,14 +402,25 @@
         border-radius: 26px 26px 0 0;
     }
     .hero-card-logo {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         object-fit: contain;
-        border-radius: 20px;
-        margin: 0 auto 18px;
+        border-radius: 24px;
+        margin: 0 auto 14px;
         display: block;
         background: transparent;
-        filter: drop-shadow(0 6px 18px rgba(79,142,247,0.35));
+        filter: drop-shadow(0 6px 20px rgba(168,120,255,0.4));
+        animation: float-card 3.5s ease-in-out infinite;
+    }
+    .hero-card-teacher {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 14px;
+        display: block;
+        border: 3px solid rgba(168,120,255,0.5);
+        box-shadow: 0 0 0 6px rgba(168,120,255,0.1), 0 8px 24px rgba(0,0,0,0.4);
         animation: float-card 3.5s ease-in-out infinite;
     }
     @keyframes float-card {
@@ -443,10 +463,11 @@
 
     .section-headline {
         text-align: center;
-        font-size: clamp(28px, 3.5vw, 44px);
+        font-size: clamp(30px, 3.8vw, 48px);
         font-weight: 900;
         margin-bottom: 14px;
-        font-family: 'Cairo', sans-serif;
+        font-family: var(--font-display);
+        letter-spacing: -0.3px;
     }
     .section-sub {
         text-align: center;
@@ -535,17 +556,17 @@
         opacity: 0;
     }
     .credit-logo {
-        height: 70px;
+        height: 90px;
         width: auto;
-        max-width: 180px;
+        max-width: 220px;
         object-fit: contain;
         background: transparent;
-        filter: drop-shadow(0 4px 14px rgba(79,142,247,0.25));
+        filter: drop-shadow(0 4px 16px rgba(168,120,255,0.3));
         transition: transform 0.35s ease, filter 0.35s ease;
     }
     .credit-logo:hover {
-        transform: scale(1.08);
-        filter: drop-shadow(0 6px 20px rgba(79,142,247,0.45));
+        transform: scale(1.1);
+        filter: drop-shadow(0 8px 24px rgba(168,120,255,0.5));
     }
     .credit-label {
         font-size: 14px;
@@ -627,10 +648,10 @@
     }
 
     .login-title {
-        font-size: 28px;
+        font-size: 30px;
         font-weight: 900;
         margin-bottom: 10px;
-        font-family: 'Cairo', sans-serif;
+        font-family: var(--font-display);
     }
     .login-title .t-accent {
         background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -707,10 +728,10 @@
         background: linear-gradient(135deg, var(--primary), var(--primary-2));
         color: #fff;
         border: none;
-        border-radius: 14px;
+        border-radius: 16px;
         font-size: 17px;
         font-weight: 800;
-        font-family: 'Tajawal', sans-serif;
+        font-family: var(--font-body);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -719,7 +740,7 @@
         position: relative;
         overflow: hidden;
         transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
-        box-shadow: 0 10px 28px rgba(37,99,235,0.38);
+        box-shadow: 0 10px 28px rgba(168,120,255,0.4);
     }
     .btn-login::before {
         content: '';
@@ -729,7 +750,7 @@
         opacity: 0;
         transition: opacity 0.4s;
     }
-    .btn-login:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 14px 36px rgba(37,99,235,0.52); }
+    .btn-login:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 14px 36px rgba(168,120,255,0.55); }
     .btn-login:hover::before { opacity: 1; }
     .btn-login span, .btn-login i { position: relative; z-index: 1; }
 
@@ -776,13 +797,13 @@
     }
     .dash-brand { display: flex; align-items: center; gap: 14px; }
     .dash-brand-logo {
-        width: 44px; height: 44px;
-        border-radius: 12px;
+        width: 56px; height: 56px;
+        border-radius: 16px;
         object-fit: contain;
         background: transparent;
-        filter: drop-shadow(0 3px 10px rgba(79,142,247,0.3));
+        filter: drop-shadow(0 3px 12px rgba(168,120,255,0.4));
     }
-    .dash-brand-name { font-size: 19px; font-weight: 900; }
+    .dash-brand-name { font-size: 20px; font-weight: 900; font-family: var(--font-display); }
     .dash-nav-actions { display: flex; gap: 12px; align-items: center; }
 
     .icon-btn-dash {
@@ -840,11 +861,11 @@
         border: 1px solid rgba(79,142,247,0.2);
     }
     .welcome-name {
-        font-size: clamp(26px, 3vw, 38px);
+        font-size: clamp(28px, 3.2vw, 40px);
         font-weight: 900;
         margin-bottom: 14px;
         line-height: 1.4;
-        font-family: 'Cairo', sans-serif;
+        font-family: var(--font-display);
     }
     .welcome-name .n-color {
         background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -855,15 +876,75 @@
     .welcome-text {
         font-size: 16px;
         color: var(--muted);
-        line-height: 1.8;
+        line-height: 1.9;
         font-weight: 500;
         max-width: 680px;
     }
+    /* بطاقة معلومات الطالب */
+    .student-info-card {
+        background: linear-gradient(135deg, rgba(168,120,255,0.08), rgba(245,158,66,0.06));
+        border: 1px solid rgba(168,120,255,0.2);
+        border-radius: 20px;
+        padding: 22px 28px;
+        margin-bottom: 26px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: center;
+    }
+    .student-info-card .si-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex: 1;
+        min-width: 220px;
+    }
+    .student-avatar {
+        width: 60px; height: 60px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        display: flex; align-items: center; justify-content: center;
+        font-size: 26px; color: #fff;
+        flex-shrink: 0;
+        box-shadow: 0 6px 20px rgba(168,120,255,0.3);
+    }
+    .student-name-block { flex: 1; }
+    .student-name-label { font-size: 13px; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+    .student-name-val { font-size: 20px; font-weight: 900; font-family: var(--font-display); }
+    .student-id-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+    }
+    .student-id-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 16px;
+        background: rgba(168,120,255,0.1);
+        border: 1px solid rgba(168,120,255,0.22);
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--primary);
+        white-space: nowrap;
+    }
+    .student-id-chip i { font-size: 12px; opacity: 0.8; }
+    .student-id-chip.gold-chip {
+        background: rgba(245,158,66,0.1);
+        border-color: rgba(245,158,66,0.22);
+        color: var(--accent);
+    }
     .welcome-img {
-        width: 170px;
-        height: auto;
+        width: 185px;
+        height: 185px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top center;
         z-index: 2;
-        filter: drop-shadow(0 12px 28px rgba(0,0,0,0.3));
+        border: 4px solid rgba(168,120,255,0.4);
+        box-shadow: 0 0 0 8px rgba(168,120,255,0.1), 0 16px 40px rgba(0,0,0,0.4);
         animation: float-teacher 3s ease-in-out infinite;
         flex-shrink: 0;
     }
@@ -918,7 +999,7 @@
     .si-green  { background: rgba(52,211,153,0.1);  color: var(--success); border: 1px solid rgba(52,211,153,0.16); }
     .si-amber  { background: rgba(251,191,36,0.08); color: var(--warning); border: 1px solid rgba(251,191,36,0.15); }
     .stat-info { position: relative; z-index: 1; }
-    .stat-val  { font-size: 32px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+    .stat-val  { font-size: 36px; font-weight: 900; line-height: 1; margin-bottom: 6px; font-family: var(--font-display); }
     .stat-lbl  { font-size: 14px; color: var(--muted); font-weight: 700; }
 
     /* أقسام الجداول */
@@ -940,11 +1021,12 @@
         border-bottom: 1px solid var(--border);
     }
     .data-card-title {
-        font-size: 20px;
+        font-size: 21px;
         font-weight: 800;
         display: flex;
         align-items: center;
         gap: 12px;
+        font-family: var(--font-display);
     }
 
     .table-wrap { overflow-x: auto; }
@@ -1006,19 +1088,19 @@
         display: inline-flex;
         align-items: center;
         gap: 12px;
-        padding: 17px 44px;
+        padding: 18px 50px;
         background: linear-gradient(135deg, var(--primary), var(--primary-2));
         color: #fff;
         border: none;
-        border-radius: 16px;
-        font-size: 17px;
+        border-radius: 18px;
+        font-size: 18px;
         font-weight: 800;
-        font-family: 'Tajawal', sans-serif;
+        font-family: var(--font-body);
         cursor: pointer;
         position: relative;
         overflow: hidden;
         transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
-        box-shadow: 0 10px 30px rgba(37,99,235,0.38);
+        box-shadow: 0 12px 36px rgba(168,120,255,0.42);
     }
     .btn-export::before {
         content: '';
@@ -1028,34 +1110,34 @@
         opacity: 0;
         transition: opacity 0.4s;
     }
-    .btn-export:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 16px 40px rgba(37,99,235,0.52); }
+    .btn-export:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 18px 44px rgba(168,120,255,0.58); }
     .btn-export:hover::before { opacity: 1; }
     .btn-export span, .btn-export i { position: relative; z-index: 1; }
 
     /* ═══════════════════════════════════════════════════════════════
-       زر التحكم بالموسيقى (أصغر وأكثر تطوراً)
+       زر التحكم بالموسيقى (أكبر وأوضح)
     ═══════════════════════════════════════════════════════════════ */
     .music-btn {
         position: fixed;
-        bottom: 24px;
-        left: 24px;
+        bottom: 28px;
+        left: 28px;
         z-index: 9999;
-        width: 48px;
-        height: 48px;
+        width: 62px;
+        height: 62px;
         border-radius: 50%;
-        background: linear-gradient(135deg, var(--primary), var(--accent));
-        border: 2px solid rgba(255,255,255,0.15);
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        border: 2px solid rgba(255,255,255,0.18);
         color: #fff;
-        font-size: 18px;
+        font-size: 22px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 8px 22px rgba(37,99,235,0.4);
+        box-shadow: 0 10px 30px rgba(168,120,255,0.5);
         transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s, background 0.3s;
     }
-    .music-btn:hover { transform: scale(1.14) translateY(-3px); box-shadow: 0 12px 28px rgba(37,99,235,0.55); }
-    .music-btn.muted { background: var(--danger); box-shadow: 0 8px 22px rgba(251,113,133,0.4); }
+    .music-btn:hover { transform: scale(1.16) translateY(-3px); box-shadow: 0 14px 36px rgba(168,120,255,0.65); }
+    .music-btn.muted { background: var(--danger); box-shadow: 0 10px 28px rgba(251,113,133,0.45); }
     .music-btn .music-wave {
         position: absolute;
         inset: -4px;
@@ -1068,8 +1150,28 @@
     .music-btn.muted .music-wave { animation: none; opacity: 0; }
     @keyframes music-pulse {
         0%   { transform: scale(1); opacity: 0.7; }
-        100% { transform: scale(1.7); opacity: 0; }
+        100% { transform: scale(1.8); opacity: 0; }
     }
+    /* تسمية زر الموسيقى */
+    .music-label {
+        position: fixed;
+        bottom: 38px;
+        left: 102px;
+        z-index: 9998;
+        background: var(--surface);
+        border: 1px solid var(--border-hi);
+        border-radius: 50px;
+        padding: 6px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        backdrop-filter: blur(12px);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    .music-btn:hover ~ .music-label { opacity: 1; }
 
     /* ═══════════════════════════════════════════════════════════════
        منطقة الطباعة المخفية
@@ -1087,21 +1189,43 @@
        استجابة للشاشات الصغيرة
     ═══════════════════════════════════════════════════════════════ */
     @media (max-width: 900px) {
-        .hero-section { grid-template-columns: 1fr; padding: 60px 28px 50px; gap: 40px; }
+        .hero-section { grid-template-columns: 1fr; padding: 60px 22px 50px; gap: 40px; }
         .hero-card { display: none; }
-        .landing-nav { padding: 18px 24px; }
-        .features-section { padding: 60px 24px; }
-        .credits-section { padding: 40px 24px; }
+        .landing-nav { padding: 16px 20px; }
+        .features-section { padding: 60px 20px; }
+        .credits-section { padding: 40px 20px; }
         .credits-divider { display: none; }
     }
     @media (max-width: 650px) {
-        .welcome-banner { flex-direction: column; padding: 30px 24px; text-align: center; }
-        .welcome-img { width: 130px; }
-        .dash-nav { flex-direction: column; gap: 14px; }
-        .hero-cta-group { flex-direction: column; align-items: flex-start; }
+        .welcome-banner { flex-direction: column; padding: 28px 20px; text-align: center; align-items: center; }
+        .welcome-img { width: 150px; height: 150px; }
+        .welcome-content { width: 100%; }
+        .welcome-text { max-width: 100%; }
+        .dash-nav { flex-direction: column; gap: 12px; padding: 14px 18px; }
+        .dash-brand { width: 100%; justify-content: flex-start; }
+        .hero-cta-group { flex-direction: column; align-items: flex-start; width: 100%; }
+        .hero-cta-group .cta-primary,
+        .hero-cta-group .cta-secondary { width: 100%; justify-content: center; }
         .features-grid { grid-template-columns: 1fr; }
         .stats-grid { grid-template-columns: 1fr; }
-        #dashboard-page { padding: 18px; }
+        #dashboard-page { padding: 14px; }
+        .student-info-card { flex-direction: column; align-items: flex-start; }
+        .student-id-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+        .data-card { padding: 20px 16px; }
+        .landing-nav { padding: 14px 16px; gap: 8px; }
+        .nav-logo-name { font-size: 18px; }
+        .nav-logo-sub { display: none; }
+        .login-card { padding: 36px 22px; }
+        .music-btn { width: 54px; height: 54px; font-size: 20px; bottom: 20px; left: 20px; }
+        .music-label { display: none; }
+        .hero-headline { font-size: clamp(32px, 8vw, 46px); }
+        table { min-width: 480px; }
+        th, td { padding: 12px 10px; font-size: 13px; }
+    }
+    @media (max-width: 400px) {
+        .cta-primary { padding: 16px 24px; font-size: 16px; }
+        .hero-headline { font-size: 30px; }
+        .nav-logo-img { width: 46px; height: 46px; }
     }
     </style>
 </head>
@@ -1117,8 +1241,8 @@
     <!-- شريط التنقل -->
     <nav class="landing-nav">
         <div class="nav-logo-group">
-            <img src="main-logo.png" alt="شعار المنصة" class="nav-logo-img"
-                 onerror="this.src='https://ui-avatars.com/api/?name=أمنية&background=2563eb&color=fff&size=80'">
+            <img src="logo.png" alt="شعار المنصة" class="nav-logo-img"
+                 onerror="this.src='https://ui-avatars.com/api/?name=أ&background=7c3aed&color=fff&size=80'">
             <div>
                 <div class="nav-logo-name">منصة أ. أمنية سعيد</div>
                 <div class="nav-logo-sub">البوابة الأكاديمية الشاملة</div>
@@ -1162,8 +1286,10 @@
             </div>
         </div>
         <div class="hero-card" id="heroCard">
-            <img src="main-logo.png" alt="شعار المنصة" class="hero-card-logo"
-                 onerror="this.src='https://ui-avatars.com/api/?name=A&background=2563eb&color=fff&size=120'">
+            <img src="logo.png" alt="شعار المنصة" class="hero-card-logo"
+                 onerror="this.src='https://ui-avatars.com/api/?name=أ&background=7c3aed&color=fff&size=120'">
+            <img src="image_2ee88b.jpg" alt="أ. أمنية سعيد" class="hero-card-teacher"
+                 onerror="this.style.display='none'">
             <div class="hero-card-title">أ. أمنية سعيد</div>
             <div class="hero-card-sub">منصة المتابعة الأكاديمية الشاملة</div>
         </div>
@@ -1205,8 +1331,8 @@
     <footer class="credits-section">
         <div class="credits-logos">
             <div class="credit-item" id="credit1">
-                <img src="omnia-team-logo.png" alt="فريق مساعدة أمنية سعيد" class="credit-logo"
-                     onerror="this.src='https://ui-avatars.com/api/?name=فريق+المساعدة&background=4f8ef7&color=fff&size=80'">
+                <img src="logo.png" alt="فريق مساعدة أمنية سعيد" class="credit-logo"
+                     onerror="this.src='https://ui-avatars.com/api/?name=فريق+المساعدة&background=7c3aed&color=fff&size=90'">
                 <div class="credit-label">
                     <strong style="color:var(--text);">تم ملء بيانات الطلاب بواسطة</strong><br>
                     فريق مساعدة الأستاذة أمنية سعيد
@@ -1215,7 +1341,7 @@
             <div class="credits-divider"></div>
             <div class="credit-item" id="credit2">
                 <img src="aura-studio-logo.png" alt="Aura Studio" class="credit-logo"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=6366f1&color=fff&size=80'">
+                     onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=a878ff&color=fff&size=90'">
                 <div class="credit-label">
                     <strong style="color:var(--text);">تم تطوير وبرمجة المنصة بواسطة</strong><br>
                     Aura Studio — للتطوير الرقمي
@@ -1232,8 +1358,8 @@
 <div id="login-page">
     <div class="login-card" id="loginCard">
         <div class="login-logo-wrap">
-            <img src="main-logo.png" alt="شعار المنصة" class="login-logo"
-                 onerror="this.src='https://ui-avatars.com/api/?name=أمنية&background=2563eb&color=fff&size=90'">
+            <img src="logo.png" alt="شعار المنصة" class="login-logo"
+                 onerror="this.src='https://ui-avatars.com/api/?name=أ&background=7c3aed&color=fff&size=90'">
             <div class="login-logo-badge"><i class="fa-solid fa-lock-open"></i></div>
         </div>
         <h1 class="login-title">منصة <span class="t-accent">أ. أمنية سعيد</span></h1>
@@ -1271,8 +1397,8 @@
 
     <nav class="dash-nav">
         <div class="dash-brand">
-            <img src="main-logo.png" alt="Logo" class="dash-brand-logo"
-                 onerror="this.src='https://ui-avatars.com/api/?name=A&background=2563eb&color=fff'">
+            <img src="logo.png" alt="Logo" class="dash-brand-logo"
+                 onerror="this.src='https://ui-avatars.com/api/?name=أ&background=7c3aed&color=fff'">
             <div class="dash-brand-name">سجل التفوق والمتابعة الشاملة</div>
         </div>
         <div class="dash-nav-actions">
@@ -1299,6 +1425,33 @@
             </div>
             <img src="image_2ee88b.jpg" alt="أ. أمنية سعيد" class="welcome-img"
                  onerror="this.style.display='none'">
+        </div>
+
+        <!-- بطاقة معلومات الطالب الموسعة -->
+        <div class="student-info-card" id="studentInfoCard">
+            <div class="si-header">
+                <div class="student-avatar" id="studentAvatarIcon">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div class="student-name-block">
+                    <div class="student-name-label">اسم الطالب</div>
+                    <div class="student-name-val" id="studentNameDisplay">—</div>
+                </div>
+            </div>
+            <div class="student-id-row">
+                <div class="student-id-chip">
+                    <i class="fa-solid fa-fingerprint"></i>
+                    <span>الكود: </span><strong id="studentUID">—</strong>
+                </div>
+                <div class="student-id-chip">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>المجموعة: </span><strong id="studentGroup">—</strong>
+                </div>
+                <div class="student-id-chip gold-chip">
+                    <i class="fa-solid fa-database"></i>
+                    <span>ID قاعدة البيانات: </span><strong id="studentFidDisplay">—</strong>
+                </div>
+            </div>
         </div>
 
         <div class="stats-grid">
@@ -1395,20 +1548,20 @@
         <div class="data-card" style="padding: 28px 30px;">
             <div style="display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap;">
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
-                    <img src="omnia-team-logo.png" alt="فريق المساعدة"
-                         style="height:55px; object-fit:contain; background:transparent; filter: drop-shadow(0 3px 10px rgba(79,142,247,0.3));"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Team&background=4f8ef7&color=fff&size=55'">
-                    <div style="font-size: 13px; color: var(--muted); font-weight: 600; line-height: 1.5;">
+                    <img src="logo.png" alt="فريق المساعدة"
+                         style="height:80px; object-fit:contain; background:transparent; filter: drop-shadow(0 4px 14px rgba(168,120,255,0.35));"
+                         onerror="this.src='https://ui-avatars.com/api/?name=Team&background=7c3aed&color=fff&size=80'">
+                    <div style="font-size: 14px; color: var(--muted); font-weight: 600; line-height: 1.5;">
                         <span style="color: var(--text); font-weight: 700;">تم ملء بيانات الطلاب بواسطة</span><br>
                         فريق مساعدة الأستاذة أمنية سعيد
                     </div>
                 </div>
-                <div style="width: 1px; height: 60px; background: var(--border);"></div>
+                <div style="width: 1px; height: 70px; background: var(--border);"></div>
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
                     <img src="aura-studio-logo.png" alt="Aura Studio"
-                         style="height:55px; object-fit:contain; background:transparent; filter: drop-shadow(0 3px 10px rgba(99,102,241,0.3));"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=6366f1&color=fff&size=55'">
-                    <div style="font-size: 13px; color: var(--muted); font-weight: 600; line-height: 1.5;">
+                         style="height:80px; object-fit:contain; background:transparent; filter: drop-shadow(0 4px 14px rgba(168,120,255,0.35));"
+                         onerror="this.src='https://ui-avatars.com/api/?name=Aura+Studio&background=a878ff&color=fff&size=80'">
+                    <div style="font-size: 14px; color: var(--muted); font-weight: 600; line-height: 1.5;">
                         <span style="color: var(--text); font-weight: 700;">تم تطوير وبرمجة المنصة بواسطة</span><br>
                         Aura Studio
                     </div>
@@ -1435,6 +1588,7 @@
     <div class="music-wave"></div>
     <i class="fa-solid fa-music" id="musicIcon"></i>
 </button>
+<div class="music-label" id="musicLabel">الموسيقى الخلفية</div>
 
 <script>
 /* ═══════════════════════════════════════════════════════
@@ -1514,7 +1668,7 @@ const musicIcon = document.getElementById('musicIcon');
 let   isPlaying = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-    music.volume = 0.35;
+    music.volume = 0.55;
     const tryPlay = () => {
         music.play().then(() => {
             isPlaying = true;
@@ -1718,6 +1872,21 @@ async function fetchStudentData() {
 
     document.getElementById('dbWelcomeTitle').innerHTML = getSmartWelcome(rawStudentName);
     document.getElementById('dbBalance').textContent    = currentStudent.wallet_balance || 0;
+
+    /* ملء بطاقة معلومات الطالب */
+    document.getElementById('studentNameDisplay').textContent  = rawStudentName || '—';
+    document.getElementById('studentUID').textContent          = uid || '—';
+    document.getElementById('studentGroup').textContent        = groupId || '—';
+    document.getElementById('studentFidDisplay').textContent   = studentFid || '—';
+
+    // أيقونة الجنس حسب الاسم
+    const femNames = ['مريم','زينب','سعاد','هند','نور','شهد','ملك','ياسمين','ريم','فرح','حنين','رؤى','سما','فاطمة','عائشة','أمينة','ميار','حبيبة','جنا','جنى'];
+    const first = rawStudentName.trim().split(' ')[0];
+    const isFem = first.endsWith('ة') || first.endsWith('اء') || first.endsWith('ى') || femNames.includes(first);
+    const avatarEl = document.getElementById('studentAvatarIcon');
+    if (avatarEl) avatarEl.innerHTML = isFem
+        ? '<i class="fa-solid fa-user-graduate" style="font-size:26px"></i>'
+        : '<i class="fa-solid fa-user-tie" style="font-size:26px"></i>';
 
     /* الحضور */
     const sessSnap   = await db.ref('attendance_sessions').once('value');
